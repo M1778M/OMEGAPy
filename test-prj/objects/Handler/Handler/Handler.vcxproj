@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C80050AD-C437-44EF-9F7A-19768C265F28}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Handler</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\abstract.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\accu.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\asdl.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\ast.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\bitset.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\bltinmodule.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\boolobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\bytearrayobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\bytesobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\bytes_methods.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\cellobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\ceval.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\classobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\code.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\codecs.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\compile.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\complexobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\datetime.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\descrobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\dictobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\dtoa.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\dynamic_annotations.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\enumobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\errcode.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\eval.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\fileobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\fileutils.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\floatobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\frameobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\funcobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\genobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\graminit.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\grammar.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\import.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\intrcheck.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\iterobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\listobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\longintrepr.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\longobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\marshal.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\memoryobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\metagrammar.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\methodobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\modsupport.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\moduleobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\namespaceobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\node.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\object.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\objimpl.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\opcode.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\osdefs.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\parsetok.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\patchlevel.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pgen.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pgenheaders.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyarena.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyatomic.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pycapsule.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyconfig.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyctype.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pydebug.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyerrors.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyexpat.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyfpe.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pygetopt.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyhash.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pymacconfig.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pymacro.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pymath.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pymem.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pyport.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pystate.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pystrcmp.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pystrtod.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\Python-ast.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\Python.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pythonrun.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pythread.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\pytime.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\py_curses.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\rangeobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\setobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\sliceobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\structmember.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\structseq.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\symtable.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\sysmodule.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\token.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\traceback.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\tupleobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\typeslots.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\ucnhash.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\unicodeobject.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\warnings.h" />
+    <ClInclude Include="..\..\..\..\OMEGAPy-Project\omg\UI\include\weakrefobject.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Handler.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
