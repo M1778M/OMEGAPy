@@ -1,0 +1,38 @@
+:Syntax:
+-SyntaxOFVariable{
+#stClasses
+@Speed = int(10);
+@@Name = str("Ali");
+fit = float(0.355);
+#nsClasses
+QuitMod = etu->new(MyCLass(None));
+}
+
+-SyntaxOFFunctions{
+# use from etu function object
+printf=function(name='printf',args=["string:str","formated"],variables={"string=string.format(formated)"},lines=["print(string)"]).exe();
+}
+
+-SyntaxOFImport{
+#omg files
+import_omg("etu.omg");
+#python files
+namelib = importpy("lib");
+}
+
+-SyntaxOFClasses{
+# use from etu class object
+Class("ClassName",functions={"for initialize the class/builtin-Function" : {"name":"__init__",args=(self,),lines=["pass"]},"print class name/pcn":{"name" : "pcn" , args=(self,),lines=["print(self.__name__)"]}}).give();
+}
+
+-SyntaxOFUseLib{
+# we use etulib
+etu = importpy("etu");
+etu->easy_loading(armor='['+etu.Back.GREEN,armorb=etu.Back.RESET+']',loader=' ',range_=100,sleep=0.01);
+}
+-SyntaxLikePython{
+# You CAn Use Python Syntax Becuase Its Runned by Python But After That It Compiled From .OMG To .PY
+import numpy as np;
+myarr = np.array([[0,0,1],[0,1,0],[1,0,0]]) # You Can Dont Use ';' For End Of Line But Its Better You Do it
+ret(myarr); # If You Want You Have a Return From File You Can Parse It To 'ret' function and Say To compiler I Want Return From File Or You can print End Of Your Work And See Result or use 'ret' funtion
+}
