@@ -1,0 +1,7 @@
+from datetime import datetime
+import time
+
+
+def now():
+    return str(datetime.now())
+
