@@ -15,6 +15,8 @@ import numpy as np
 ############  OMEGAPy Modules
 
 try:
+    import cython
+    from cython import cclass,cfunc,c_int
     from . import etu
     from .etu import function
 except:
@@ -387,6 +389,7 @@ class StdIReturnObj():
         else:
             raise IReturnValueError (f'Invalid \'{number}\' Of Object')
 
+@cclass
 class IReturn():
     global IReturn
     StandardReturnBack = {'key':True,'start':0,'step':1}
