@@ -1,12 +1,17 @@
 ############  Public Modules
 
 try:
+    import cython
     import numpy as np
     import pathlib as pl
-    from colorama import init,Fore,Back,Style
-except Exception as err:
+    from colorama import init,Fore,Back
+    from numpy import array
+    from .tools import listTool
+    from cython import cfunc,cclass,int as c_int
+except ImportError as err:
     raise ImportError (err)
-
+except Exception as err:
+    raise EtuExceptionError(err)
 ###############################################################################################
 ###############################################################################################
 
@@ -19,18 +24,21 @@ except:
     try:
         from . import __need__
         stdn = __need__
-    except Exception as err:
+    except ImportError as err:
         raise ImportError (err)
-        
+    except Exception as err:
+        raise EtuExceptionError(err)
 ###############################################################################################
 ###############################################################################################
+
+class EtuExceptionError(Exception):
+    def __init__(self,msg):
+        super().__init__(msg)
+
 init()
 
+
 def nothing():pass
-
-
-def int_(*args):
-    return None
 
 
 class _Learn():
@@ -51,10 +59,11 @@ class Condition():
     def _check(self):
         return self.cs
 
+@cclass
 class c_for():
     def std_print(i):
         print(i)
-    def __init__(self,i:int,condition:Condition,job:str,work:type(nothing)):
+    def __init__(self,i:c_int,condition:Condition,job:str,work:type(nothing)):
         self.i = i
         self.cnd = condition
         self.job = job
@@ -90,6 +99,21 @@ class c_for():
             else:
                 pass
         return int_a
+
+class Fail(Warning):
+    def __init__(self,msg):
+        super().__init__(msg)
+    
+
+@cclass
+class PyObject(object):
+    def __init__(self,Obj,class_):
+        super().__init__()
+        
+    def Oisinstace_with(self,ok:object):
+        return isinstace(self.Obj,ok)
+    def Cisinstace_with(self,ok:object):
+        return isinstace(self.class_,ok)
     
 class CoreException(Exception):
     def __init__(self,msg):
@@ -98,7 +122,7 @@ class CoreException(Exception):
 class NoneSpaceSyntaxError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
-
+@cfunc
 def gtime(appn:str):
     from os import system
     from time import time
@@ -111,7 +135,7 @@ def gtime(appn:str):
     log("End Time %s" % str(get))
     log("\nTotal : %s" % str(get-gt))
     return get-gt
-
+@cclass
 class function():
     options = ['name:str','args=[]','variables={}','lines=[]','function(name="Example",args=["Name"],variables={"GetName":"Name"},lines=["print(GetName)"])']
         
@@ -202,6 +226,14 @@ class function():
     def __repr__(self):
         return self.___make()
 
+def _tnow():
+    from datetime import datetime
+    import time
+    def now():
+        return str(datetime.now())
+    return now()
+
+
 class UnkownError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
@@ -239,6 +271,7 @@ class InvalidMODError(Exception):
 class InvalidPrinterArgumentError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
+@cclass
 class belog():
     BELOG_COLORS = Fore
     BELOG_BGCOLORS = Back
@@ -271,13 +304,13 @@ class belog():
             return True
         else:
             return False
-    def log(self,logText:str,print_function=print,_type='[INFO]'):
+    def log(self,logText:str,print_func=print,_type='[INFO]'):
         if self.mod == self.BELOG_MOD_COMMAND_LINE_PRINT:
-            print_function(_type,logText)
+            print_func(_type,logText)
         elif self.mod == self.BELOG_MOD_FILE_WRITE:
             self.log_file.write(_type+logText+'\n')
         else:
-            raise Exception ()
+            raise EtuExceptionError ()
     def give_log_file(self):
         return self.log_file
     def close_log_file(self):
@@ -425,8 +458,26 @@ class learn_Class(_Learn):
     def help(self):
         return 'use:\nlearn.example|learn.how2use'
 
+def XSyntax(code):
+    code = code.decode()
+    syntax = ''
+    syntax = code.replace('xlib','omg.etu')
+    return syntax.encode('utf-8')
+
+class x(object):
+    def __init__(self):
+        super().__init__()
+    def _execute_code(self,Code:str):
+        xret = exec ("xlib = 'omglib';")
+        return xret
+    def code(self,code):
+        return self._execute_code(XSyntax(code.encode('utf-8')).decode())
+    
+        
+
+@cclass
 class Class():
-    def __init__(self,class_name,class_erase=['object'],functions={"__init__" : {"name" : "__init__","args":("self",),"lines":["self.name = 'mamad'","print(self.name)"]}}):
+    def __init__(self,class_name,class_erase=['object'],functions={"__init__" : {"name" : "__init__","args":("self",),"lines":["self.by = 'etu.Class'","print(self.name)"]}}):
         self.ClassName = class_name
         self.ClassErase = class_erase
         self.kwargs = functions
@@ -494,6 +545,7 @@ class Class():
                 raise Exception(err)
 
 
+
 def sfunction(name:str,p_String:str):
     exec(p_String,globals())
     exec(f"__NoneSpaceGlob = {name}",globals())
@@ -517,7 +569,7 @@ def Exec(string):
 
 
 
-
+@cclass
 class cfs:
     def __init__(self,x=0,y=0):
         self.x = x
@@ -803,14 +855,9 @@ class cfs:
     
     
 
-def data_mage(imgpath:pl.Path):
-    from cv2 import imread
-    img = imread(imgpath)
-    imgA = np.array(img)
-    return imgA
 
 
-    
+@cclass
 class new():
     def __init__(self,ObjTN):
         self.__cject = ObjTN
@@ -832,14 +879,14 @@ class new():
 _xy = cfs()
 
 
-        
+@cfunc 
 def printc(text:str,ctext:str,timesleep=0.2):
     print(text,end='\r')
     stdn.time.sleep(timesleep)
     print(ctext,end='')
 
 
-
+@cclass
 class AnimationGraph(): 
     def __init__(self,fode=[0,100]):
         import pyfiglet as __pyf
@@ -860,7 +907,8 @@ class AnimationGraph():
             break #-----------------------> HERE
     def RenderGraphText(self,bText:str):
         pass
-    
+
+@cclass
 class AnimationLoader():
     def __init__(self,backText="loading",nextText=None,loaderlength:int=1,loaderstyle={"color":Fore.GREEN,"BackGround":Back.WHITE},end='\n'):
         self.bt = backText
@@ -900,6 +948,7 @@ class AnimationLoader():
             self.load += li
             self.printf(self.load)
 
+@cfunc
 def easy_loading(text='loading',armor='[',armorb=']',sleep=0.1,loader='-',range_=10):
     text = text +' '+ armor
     for i in range(range_):
@@ -908,7 +957,7 @@ def easy_loading(text='loading',armor='[',armorb=']',sleep=0.1,loader='-',range_
         stdn.time.sleep(sleep)
     print(text+armorb,end='\n')
 
-
+@cclass
 class LoadingAnimation():
     defualt_color = Fore.WHITE
     def __init__(self):
@@ -966,12 +1015,16 @@ class LoadingAnimation():
                 self.printf(read[i],end=End[i])
             else:
                 raise TypeError (f"Can't Use ActionType({readact[i]})!")
+
+@cclass
 class AnimationText():
     def __init__(self):
+        self._antxt = None
+        self._antxt_e = None
         self.list = []
     def set_animation(self,ls:list):
         self.list = ls
-    def make_animation(self,func):
+    def make_animation(self,func=lambda x:x):
         o = list()
         for i in self.list:
             o.append(func(i))
@@ -980,6 +1033,12 @@ class AnimationText():
     def wAnimationPrint(self):
         for i in self.outAnimation:
             yield i
+    def set_text(self,text:str):
+        self._antxt = text
+        return True
+    def set_end_text(self,text:str):    
+        self._antxt_e = text
+        return True
     def AnimationPrint(self,type="loader",timesleep=0.25):
         if type == 'loader':
             alist = self.outAnimation
@@ -992,6 +1051,17 @@ class AnimationText():
             for i in alist:
                 print(i,end='')
                 stdn.time.sleep(timesleep)
+        elif type == 'master':
+            def make_text(txt:str,ptr:str):
+                return txt+ptr
+            if self._antxt and self._antxt_e:
+                alist = self.outAnimation
+                for i in alist[:-1]:
+                    print(make_text(self._antxt,i),end='\r',flush=True)
+                    stdn.time.sleep(timesleep)
+                print(make_text(self._antxt,alist[-1])+self._antxt_e+'\t'*5,end='\n')
+            else:
+                self.AnimationPrint(timesleep=timesleep)
 class Vbin():
     def __init__(self,objecute:list):
         self.obj = objecute
@@ -1015,6 +1085,8 @@ function('SunNum',["text:str","gq='x'"],{"OMGFLAG": True,"output":[]},["for i in
 
 function('SensorInt',['Num:int','SL:int'],{'L':'len(str(Num))','SR':'str(Num)','SRD':'SR[SL:]','SRD2':'SR[:SL]','flag':0},['for i in range(len(SRD)):flag+=1','for i in range(flag):SRD2+=\'*\'','return SRD2']).exe()
 
+function('rtu_anloader',['text','etext','anim_len'],{'a': "AnimationText()"},['a.set_animation(["/","-","\\\\"]*anim_len+["~"])','a.set_text(text)','a.set_end_text(etext)','a.make_animation()','return a']).exe()
+@cfunc
 def AnimationPrint(alist:list,timesleep=0.25):
     print(alist[0],end='\r')
     for i in alist[1:]:
