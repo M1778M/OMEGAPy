@@ -1,0 +1,36 @@
+import numpy
+
+class Algorithm16:
+    def __init__(self,name:str=None,base:str='UnknownBaseAlgoritm-NSTD',about:str=None):
+        self._algoritm_name = name
+        self._algoritm_base = base
+        self._algoritm_about = about
+    def set_name(self,newname:str):
+        self._algoritm_name = newname
+        return True
+    def set_base(self,newbase:str):
+        self._algoritm_base = newbase
+        return True
+    def set_about(self,newabout:str):
+        self._algoritm_about = newabout
+        return True
+
+class Algorithm32:
+    def __init__(self,name:str=None,base:str='UnknownBaseAlgoritm-NSTD',about:str=None):
+        self._algoritm_name = name
+        self._algoritm_base = base
+        self._algoritm_about = about
+    def set_name(self,newname:str):
+        self._algoritm_name = newname
+        return True
+    def set_base(self,newbase:str):
+        self._algoritm_base = newbase
+        return True
+    def set_about(self,newabout:str):
+        self._algoritm_about = newabout
+        return True
+    
+class IOAlgorithm(Algorithm16):
+    def __init__(self,name:str=None,about:str=''):
+        super().__init__(name,'IOAlgoritm32-pyapi',about)
+    

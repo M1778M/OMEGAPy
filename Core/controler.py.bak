@@ -1,15 +1,21 @@
-from configparser import ConfigParser
-import re
-from colorama import Back,Style,Fore,init
-import .__projc__ as pj
-from shutil import copyfile
-import pathlib
+try:
+    from configparser import ConfigParser
+    import re
+    from colorama import Back,Style,Fore,init
+    from . import __projc__ as pj
+    from shutil import copyfile
+    import pathlib
+except ImportError as err:
+    raise ImportError (err)
+except Exception:
+    raise Exception (err)
+
 init()
 global prj_ini
 prj_ini = ConfigParser()
-prj_ini.read('config.ini')
+prj_ini.read('cfg.ini')
 def __prj_str():
-    with open('config.ini','r') as f:
+    with open('cfg.ini','r') as f:
         val = f.read()
         f.close()
     return val
@@ -68,7 +74,7 @@ defualt_dict = {
 def reset():
     global prj_ini
     def edit_ini():
-        with open('config.ini','w') as f:
+        with open('cfg.ini','w') as f:
             prj_ini.write(f)
             f.close()
     prj_ini = ConfigParser()
@@ -81,7 +87,7 @@ def reset():
 def prj_ini_reset():
     global prj_ini
     prj_ini = ConfigParser()
-    prj_ini.read('config.ini')
+    prj_ini.read('cfg.ini')
 
 def fprint(*args,formatEncode='utf-8',cs:Fore=None,ce=Fore.RESET,e='\n'):
     op = ""
@@ -191,7 +197,7 @@ class shellini():
 
 def Edit_License():
     def edit_ini():
-        with open('config.ini','w') as f:
+        with open('cfg.ini','w') as f:
             prj_ini.write(f)
             f.close()
         prj_ini_reset()
@@ -237,7 +243,7 @@ class EditConfig():
     def project_edit_from():
         import __projc__
         def edit_ini():
-            with open('config.ini','w') as f:
+            with open('cfg.ini','w') as f:
                  prj_ini.write(f)
                  f.close()
             prj_ini_reset()

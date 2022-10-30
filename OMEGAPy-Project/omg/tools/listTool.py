@@ -1,6 +1,33 @@
 from . import workspace
 
 
+
+
+class ListTools():
+    def __init__(self,list):
+        self._list = list
+    def ToString(self)->str:
+        out = ''
+        for i in self._list:
+            out += str(i)
+        return out
+    def if_list_in_list(self):
+        for i in self._list:
+            if type(i) == list:
+                return True
+        return False
+    def if_type_in_list(self,type_:type):
+        for i in self._list:
+            if type(i) == type_:
+                return True
+        return False
+    def GAItemlist(self):
+        GAItem(self._list)
+        return GAItem_out()
+
+
+
+
 def ToString(ls:list)->str:
     out = ''
     for i in ls:
@@ -59,3 +86,25 @@ def GAItem_out():
 def GAItemlist(ls):
     GAItem(ls)
     return GAItem_out()
+
+def alist():
+    return []
+
+def tlist_for_each(ls,enum = lambda x:x ):
+    out = []
+    
+    for item in ls:
+        out.append(enum(item))
+    return ListTools(out)
+
+def list_for_inner(gen):
+    out = []
+    for i in gen:
+        out.append(i)
+    return out
+
+def list_for_each(ls,enum = lambda x:x ):
+    out = []
+    for item in ls:
+        out.append(enum(item))
+    yield out

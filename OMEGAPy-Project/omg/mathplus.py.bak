@@ -1,0 +1,10 @@
+from .fastbit import N,W,Z,Q,Qp,pi,UnderSquareRoot,usqrt
+from . import fastbit
+
+
+
+def sqrt(y,x=2):
+    if y+1 == y+1 and x!=0:
+        return y**(1/x)
+    else:
+        raise TypeError()

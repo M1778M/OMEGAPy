@@ -1,28 +1,24 @@
-#OMEGA-PY (MachinLearning, DeepLearning, AI, DataScience, DataAnalyze, EasyProgramming, ProjectTools, FILET) PROJECT
-#Name -> OMEGA-PY-P2D.omgprj
-#WorkOn -> [MachinLearning, DeepLearning, AI, DataScience, DataAnalyze]
-#NoneSpaceSTD -> class(path=std.NoneSpace)
-#Variables -> Varead(__name__)
-#Functions -> Funread(__name__)
-#OMEGA-PyVersion-Xl -> xExe(644320033[1p2y3t4h5o6n73].setc(if [x.code('findFolder("omegapy")',return=True)] else setw(selFirst.List.['Version'])))
-#OMEGA-PySetter -> omg.ssafe
-#OMEGA-PyUI -> omegapy.etu.ReadUI().__ret__()
-#OMEGA-PyGUI -> omegapy.etu.GuiMdl.Calculate(Normal=XSS.Mild)
-#INFO -> {omg.Secure.inforead(03)}
+#OMEGA-PY (MachinLearning, DeepLearning, AI, DataScience, DataAnalyze, EasyProgramming, ProjectTools, FILE) PROJECT
+#Name -> OMEGAPY-P2D.omgprj
+#About -> work with models and variables with low of value to focus better and make data with high focus
+#LICENSE -> OMEGAPY/omg/NoneSpace/Lisences.nsl.open and OMEGAPY/omg/NoneSpace/OMEGAPy-Lisence.nsl
+
+#By M1778
 #------------------------------------------OMEGA-PyProject------------------------------------------------
 
 import numpy as np
 ############  OMEGAPy Modules
 
 try:
-    import cython
-    from cython import cclass,cfunc,c_int
+    from .error_handling import *
+    from . import mem
     from . import etu
     from .etu import function
 except:
     try:
         from .etu import function
         from . import etu
+        from . import mem
     except Exception as err:
         raise ImportError(err)
 
@@ -389,7 +385,6 @@ class StdIReturnObj():
         else:
             raise IReturnValueError (f'Invalid \'{number}\' Of Object')
 
-@cclass
 class IReturn():
     global IReturn
     StandardReturnBack = {'key':True,'start':0,'step':1}
@@ -405,9 +400,6 @@ class IReturn():
         self.Ax0 = Ax0
         self.kwargs = kwargs
         self.formating = IReturn.StandardFormating
-        self.__csource_exe = f"int main():int a[] = :{self.__return__()}@;@"
-        self.__csource_exe = self.__csource_exe.replace(':','{')
-        self.__csource_exe = self.__csource_exe.replace('@','}')
         self.__rdfocoa()
     def __rdfocoa(self):
         self.__change_object__ = self._setax0
@@ -423,19 +415,6 @@ class IReturn():
     def __pointer__(self,point=0):
         for i in range(point):
             yield self.DictReturn()
-    def __ui__(self,method='GET',url='',params=None,data={}, headers={'IReturn-Object' : 0}):
-        from requests import get,post
-        try:
-            if headers['IReturn-Object'] == 0:
-                headers['IReturn-Object'] = str(self.__return__())
-            else:
-                pass
-            if method.lower() == 'get':
-                return get(url=url,params=params,data=data,headers=headers)
-            else:
-                return post(url=url,params=params,data=data,headers=headers)
-        except Exception as err:
-            raise IReturnUnknownError (err)
     def __lt__(self,other):
         if type(other) is not list:
             raise IReturnValueError(f'Can\'t Support Type \'{type(other)}\' Just Support Type "{IReturn,list}"')
@@ -513,24 +492,17 @@ class IReturn():
             print()
     def ToArray(self):
         return IReturnArray (self)
-    def exe(self):
-        import os
+    def exe(self,file_name,info={'model_name':"Default",'time_reg':str(etu.stdn.datetime.datetime.now()),'data':'action_get'}):
         try:
-            r = self.__csource_exe.rfind(']')
-            l = self.__csource_exe.rfind('[')
-            m = list(self.__csource_exe)
-            del m[r]
-            del m[l]
-            ot = ''
-            for i in m:
-                ot += i
-            self.__csource_exe = ot
-            standard_create_file_name = '__ireturn_object_created__.c'
-            if standard_create_file_name in os.listdir():
-                os.remove(standard_create_file_name)
-            with open(standard_create_file_name,'w') as f:
-                f.write(self.__csource_exe)
-                f.close()
+            formatexe = _IRETURN.MAKE_EXE['FORMAT_ALGORITHM']
+            if info['data'] == 'action_get':
+                info['data'] = self.__return__()
+            else:
+                if type(info['data']) != list:
+                    return False
+            f = open(file_name,'w')
+            f.write(formatexe.format(info['model_name'],info['time_reg'],info['data']))
+            f.close()
         except Exception as err:
             raise IReturnUnknownError (err)
         return True
@@ -797,18 +769,22 @@ class IReturn():
         return str(self)
     def __return__(self):
         ot = []
+
         for i in range(len(self.Ax0)):
             for j in range(int(self.Ax0[i])):
                 for it in range(self.kwargs['start'],j,self.kwargs['step']):
                     ot.append(it)
+
         return ot
-    def __repr__(self): 
+    def __repr__(self):
+
         if self.kwargs['key']==True:
             ot = []
             for i in range(len(self.Ax0)):
                 for j in range(int(self.Ax0[i])):
                     for it in range(self.kwargs['start'],j,self.kwargs['step']):
                         ot.append(it)
+
             return str(ot)
         else:
             for i in range(len(self.Ax0)):
@@ -817,6 +793,7 @@ class IReturn():
                         std.printf(it,'\t')
                     std.printf('\n')
             print()
+
             return str(self.__return__())
 
 

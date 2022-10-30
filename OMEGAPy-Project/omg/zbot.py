@@ -1,4 +1,6 @@
-import etu
+from . import etu
+import pathlib as pl
+
 pc = etu.stdn.pickle
 
 __EPE_PIS = 'Password Is Short'
@@ -100,41 +102,66 @@ def __makebotToken():
 MBT = __makebotToken
 CP = __checkpass
 _Bot__checkpass = CP
-class Bot():
-    __format = """Token = {}
-Name = {}
-Password = {}
-Data = {}"""
-    canceled = True
-    def __init__(self,name:str,password:str):
-        self.BotName = name
-        self.__Token = MBT()
-        if __checkpass (password) > 2:
-            self.___password = password
-        elif __checkpass (password) < 2:
-            raise EasyPasswordError ('Password Is Easy')
-    def save(self,password,data={}):
-        if self.CheckPass(password):
-            with open(self.BotName+'.bot','w') as f:
-                f.write(Bot.__format.format(self.__Token,self.BotName,self.___password,data))
+
+class WrongPassword(Exception):
+        def __init__(self,txt=''):
+            super().__init__(txt)
+class InvalidSuffixError(Exception):
+        def __init__(self,txt=''):
+            super().__init__(txt)
+class FileExistsError(Exception):
+        def __init__(self,txt=''):
+            super().__init__(txt)
+class BotNotFoundError(Exception):
+        def __init__(self,txt=''):
+            super().__init__(txt)
+class Bot:
+    def makingFormatingV0_01(request,path,**Info):
+        def read_format(formatedStr):
+            return pc.loads(formatedStr)
+        if request == 'GET_INFO':
+            if pl.Path(path).is_file() and pl.Path(path).exists() and pl.Path(path).suffix == '.zbot':
+                bot = read_format(open(str(pl.Path(path).absolute()),'rb'))
+                if Info['password'] == bot.bpassword:
+                    return bot
+                raise WrongPassword('password for this bot is not True')
+            else:
+                raise BotNotFoundError()
+        elif request == 'MAKE_BOT':
+            botfs = Info['bot']
+            if pl.Path(path).exists():
+                raise FileExistsError()
+            elif pl.Path(path).suffix != '.zbot':
+                raise InvalidSuffixError('use .zbot end of your file name')
+            else:
+                pc.dump(botfs,open(str(pl.Path(path).absolute()),'wb'))
+                return True
         else:
-            raise FalsePasswordError ('False Password!')
-    def setPass(self,OldPassword,NewPassword):
-        if OldPassword == self.___password:
-            if __checkpass (NewPassword) > 2:
-                self.___password = NewPassword
-            elif __checkpass (NewPassword) < 2:
-                raise EasyPasswordError ('Password Is Easy')
-        else:
-            raise FalsePasswordError ('False Password!')
-    def CheckPass(self,password):
-        if password == self.___password:
-            return True
-        else:
+            print('UNSUPPORTED REQUEST FOR THIS VERSION')
             return False
-    def GETTKN(self,password):
-        if password == self.___password:
-            return self.__Token
+    def __init__(self,bname,bpassword):
+        self.access = True if _Bot__checkpass(bpassword) else False
+        self.bname = bname
+        bpassword = bpassword
+    def make(self,path)->bool:
+        if self.access:
+            newToken = MBT()
+            self.btoken = newToken
+            pfs = str(pl.Path(path).absolute())
+            if Bot.makingFormatingV0_01('MAKE_BOT',pfs,bot=self):
+                return True
         else:
-            raise FalsePasswordError ('False Password!')
-    
+            print('MakeBotError[3]: EasyPasswordError recreate Bot with stronger password')
+            return False
+    def add_data(name:str,data):
+        setattr(self,name,data)
+
+
+def new_bot(name,password):
+    return Bot(name,password)
+def save_bot(bot:Bot,path:str):
+    return bot.make(path)
+def addData2Bot(bot:Bot,dname:str,data):
+    setattr(bot,name,data)
+def read_botFile(path:str,password):
+    return Bot.makingFormatingV0_01('GET_INFO',path,Info={'password':password})

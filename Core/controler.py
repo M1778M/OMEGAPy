@@ -1,15 +1,24 @@
-from configparser import ConfigParser
-import re
-from colorama import Back,Style,Fore,init
-from . import __projc__ as pj
-from shutil import copyfile
-import pathlib
+try:
+    from configparser import ConfigParser
+    import re
+    from colorama import Back,Style,Fore,init
+    import pathlib
+    from importlib import import_module as import_
+    import __projc__ as pj
+    from shutil import copyfile
+except ImportError as err:
+    raise ImportError (err)
+except Exception:
+    raise Exception (err)
+
+self_path = str(pathlib.Path(__file__).parent)+'\\'
+
 init()
 global prj_ini
 prj_ini = ConfigParser()
-prj_ini.read('cfg.ini')
+prj_ini.read(self_path+'cfg.ini')
 def __prj_str():
-    with open('cfg.ini','r') as f:
+    with open(self_path+'cfg.ini','r') as f:
         val = f.read()
         f.close()
     return val
@@ -65,6 +74,57 @@ defualt_dict = {
 }
 #-------------------------------------
 
+class nonSTD:
+    def __init__(self):
+        self._ = 'For nonStandard Objects'
+
+class STD_CONFIGFILE_NOTFOUND(Exception):
+    def __init__(self,msg):
+        super().__init__(msg)
+
+class stdc:
+    def __init__(self):
+        self._init_ok()
+    def _init_ok(self):
+        try:
+            self.stdget = ConfigParser()
+            self.stdget.read(self_path+'std.ini')
+        except:
+            raise STD_CONFIGFILE_NOTFOUND('Cannot find std.ini file. Please reinstall OMEGAPy')
+    def get_dict(self):
+        return dict(self.stdget)
+    def get(self):
+        return self.stdget
+    def get_projects(self):
+        return self.stdget['projects']
+    def get_projects_info(self):
+        return self.stdget['projects-info']
+    def pis_exists(self,prjname:str):
+        paths = self.get_projects().values()
+        for i in paths:
+            check = ConfigParser()
+            check.read(str(pathlib.Path(i).absolute())+'/core/config.ini')
+            if prjname == check['about-project']['project_name']:
+                return True
+            elif 'nop' == check['about-project']['project_name']:
+                if prjname == pathlib.Path(i).name:
+                    return True
+        return False
+    def get_project_byname(self,prjname):
+        paths = self.get_projects().values()
+        project = None
+        for i in paths:
+            check = ConfigParser()
+            check.read(str(pathlib.Path(i).absolute())+'/core/config.ini')
+            if prjname == check['about-project']['project_name']:
+                project = i
+                break
+            elif check['about-project']['project_name'] == 'nop':
+                if prjname == pathlib.Path(i).name:
+                    project = i
+        return project
+
+
 def reset():
     global prj_ini
     def edit_ini():
@@ -74,15 +134,15 @@ def reset():
     prj_ini = ConfigParser()
     prj_ini.read_dict(defualt_dict)
     edit_ini()
-    path = '..\\'
+    path = self_path+'..\\'
     copyfile(path+".Core\\main.copy",path+"OMEGAPy-Project\\main.py")
     return 0;
 
 def prj_ini_reset():
     global prj_ini
     prj_ini = ConfigParser()
-    prj_ini.read('cfg.ini')
-
+    prj_ini.read(self_path+'/cfg.ini')
+    
 def fprint(*args,formatEncode='utf-8',cs:Fore=None,ce=Fore.RESET,e='\n'):
     op = ""
     if cs:
@@ -154,7 +214,7 @@ def Find(arg:str):
 class shellini():
     def __init__(self):
         self.__log = set()
-    def Test(self):
+    def _Test(self):
         myl = ["Windows","Linux","MacOs"]
         self.fprint(myl,title="What Is You'r Favorite os?",e="Choose one os:")
         cmd = self.set_method()
@@ -191,7 +251,7 @@ class shellini():
 
 def Edit_License():
     def edit_ini():
-        with open('cfg.ini','w') as f:
+        with open(self_path+'cfg.ini','w') as f:
             prj_ini.write(f)
             f.close()
         prj_ini_reset()
@@ -233,17 +293,18 @@ def CheckConfig():
         NTC.append('project_country')    
     return NTC
 
-class EditConfig():
+class EditConfig(nonSTD):
+    nonStandardFunction = True
     def project_edit_from():
         import __projc__
         def edit_ini():
-            with open('cfg.ini','w') as f:
+            with open(self_path+'cfg.ini','w') as f:
                  prj_ini.write(f)
                  f.close()
             prj_ini_reset()
         def vCountry(country:str):
             v = False
-            with open('countries.list','r') as f:
+            with open(self_path+'countries.list','r') as f:
                 countries = f.read()
                 f.close()
             countries = countries.split('\n')
@@ -446,3 +507,6 @@ class EditConfig():
 
         if Test[0] == True:
             ask()
+
+def main():
+    ...

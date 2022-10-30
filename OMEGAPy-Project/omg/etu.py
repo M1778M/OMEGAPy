@@ -1,13 +1,16 @@
 ############  Public Modules
 
 try:
-    import cython
-    import numpy as np
-    import pathlib as pl
+    from cython import cfunc,cclass,int as c_int
     from colorama import init,Fore,Back
     from numpy import array
-    from .tools import listTool
-    from cython import cfunc,cclass,int as c_int
+    from typing import Any
+    import pathlib as pl
+    import numpy as np
+    import cython
+    import sys
+    import re
+    import os
 except ImportError as err:
     raise ImportError (err)
 except Exception as err:
@@ -20,6 +23,9 @@ except Exception as err:
 
 try:
     from . import __need__ as stdn
+    from .error_handling import *
+    from .tools import listTool
+    from .algoritm import Xalg
 except:
     try:
         from . import __need__
@@ -29,7 +35,44 @@ except:
     except Exception as err:
         raise EtuExceptionError(err)
 ###############################################################################################
+#-------------------------------------- Etu Globals ------------------------------------------
+
 ###############################################################################################
+#-------------------------------------- Etu BaseMethods ---------------------------------------
+class _ETU_COMMENT:
+    def __init__(self,comment):
+        pass
+    def __new__(self,comment):
+        return '#'+str(comment)
+
+class Var:
+    def __init__(self,value):
+        self._defineVal = value
+    def __new__(self,value):
+        self._defineVal = value
+        return value
+def _getalgoritm():
+    ...
+class _ETU_MULTY_COMMENT:
+    def __init__(self,*comments):
+        pass
+    def __new__(self,*comments):
+        commenteds = []
+        for comment in comments:
+            commenteds.append("#"+str(comment))
+        return commenteds
+###############################################################################################
+#----------------------------------------- Etu Basics ----------------------------------------
+_ETU_CONNECTIONS = _ETU_COMMENT("Python3Api")
+_ETU_LISENCE = _ETU_COMMENT("OMEGAPy-NoneSpaceSTDOpenLisence")
+_ETU_VERSION = Var(.02)
+_ETU_ALGORITM = Var("By OMEGAPy_ETUx_WindowsBased32")
+_ETU_SYNTAX = Var("By Python3-NoneSpaceSyntax")
+_ETU_STANDARD_MODULES = _ETU_MULTY_COMMENT('stdn','cython','sys','re','os','numpy','pathlib','colorama','error_handling','typing','tools')
+_ETU_MEMORY_MANAGEMENT = _ETU_COMMENT("By Python3")
+ETU_BASE = Var((dir(),_ETU_COMMENT("EasyToUse Standard Module")))
+###############################################################################################
+
 
 class EtuExceptionError(Exception):
     def __init__(self,msg):
@@ -40,18 +83,6 @@ init()
 
 def nothing():pass
 
-
-class _Learn():
-    def __init__(self):
-        self.__ex = self.example
-        self.__h2u = self.how2use
-        self.__hlp = self.help
-    def example(self):
-        return "LEARN.callobj(2)\nLEARN.endcall(2)\nLEARN.TASKDONE(LEARN.forever)"
-    def how2use(self):
-        return "this is an example for you\nprintf(\"Hello World\");"
-    def help(self):
-        return "LEARN WITH OOP!"
 
 class Condition():
     def __init__(self,conditionStr:str):
@@ -87,18 +118,18 @@ class c_for():
             elif job[i]=='-':
                 int_a-=1
             elif job[i]=='*':
-                int_a*=job[i+1]
+                int_a*=int(job[i+1])
             elif job[i]=='/':
-                int_a/=job[i+1]
+                int_a/=int(job[i+1])
             elif job[i]=='**':
-                int_a**=job[i+1]
+                int_a**=int(job[i+1])
             elif job[i]=='//':
-                int_a//=job[i+1]
+                int_a//=int(job[i+1])
             elif job[i]=='%':
-                int_a%=job[i+1]
+                int_a%=int(job[i+1])
             else:
                 pass
-        return int_a
+        return int(int_a)
 
 class Fail(Warning):
     def __init__(self,msg):
@@ -106,15 +137,66 @@ class Fail(Warning):
     
 
 @cclass
+#------------------------------ PyObject
 class PyObject(object):
-    def __init__(self,Obj,class_):
+    def __init__(self,*args):
         super().__init__()
+        self._args=args
+        self.__save_range = []
+    def run_with_compile(self,function_,send_args=True):
+        compiledObject = cython.compile(function_)
+        if send_args:
+            thread = stdn.threading.Thread(target=compiledObject,args=self._args)
+            thread.start()
+        else:
+            thread = stdn.threading.Thread(target=compiledObject,args=tuple())
+            thread.start()
+    def cdef(self,func,name):
+        compiledObject = cython.compile(func)
         
-    def Oisinstace_with(self,ok:object):
-        return isinstace(self.Obj,ok)
-    def Cisinstace_with(self,ok:object):
-        return isinstace(self.class_,ok)
-    
+        return setattr(self,name,compiledObject)
+    def sizeof(self,obj):
+        x = sys.getsizeof(obj)
+        return x
+    def declare(self,name,type_,value):
+        try:
+            setattr(self,name,type_(value))
+        except:
+            raise UnknownError("Unknown Error process Id -> [%s]" % os.getpid())
+    def add_newtype(self,class_):
+        super(class_).__init__()
+    def execute_code_on_defined_object(self,code,definedn,byname:str='DefinedObj'):
+        exec(f"{byname} = {self.__save_range[definedn]}",globals())
+        exec(code)
+    def save_databy(self,format='python',filepath='./.saved_PyObject_data'):
+        if format == 'python':
+            with open(filepath,'w')as(f):
+                f.write(f'PyObjectFormatedByList = {self.__save_range}')
+                f.close()
+            return True
+        else:
+            raise CoreError ("Format IsNotValid.")
+    def read_databy(self,format='python',filepath='./.saved_PyObject_data'):
+        if format == 'python':
+            with open(filepath,'r')as(f):
+                exec(f.read(),globals())
+                f.close()
+            self.__save_range = PyObjectFormatedByList
+            return PyObjectFormatedByList
+        else:
+            raise CoreError ("Format IsNotValid.")
+    def define(self,obj):
+        if type(obj)==type:
+            raise TypeError ("Cannot define type like.")
+        def randomName():
+            return ('defineObj'+str(stdn.random.randint(9999999,99999999)))
+        self.declare('defObj'+((str(obj))if hasattr(obj,'__str__')else(randomName())),type(obj),obj)
+        self.__save_range.append(obj)
+    def deflist(self):
+        return self.__save_range
+PyObject = cython.typedef(PyObject)
+#---------------------------------
+
 class CoreException(Exception):
     def __init__(self,msg):
         super().__init__(msg)
@@ -122,6 +204,32 @@ class CoreException(Exception):
 class NoneSpaceSyntaxError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
+
+def fprint(*args,formatEncode='utf-8',cs:Fore=None,ce=Fore.RESET,e='\n'):
+    op = ""
+    if cs:
+        for item in args:
+            print(cs+item+ce,end='')
+            op += str(item)
+    else:
+        for item in args:
+            print(item,end='')
+            op += str(item)
+    print(e,end=e)
+    return op.encode(formatEncode)
+
+class private:
+    def __init__(self,valOobj:Any):
+        self.___ = lambda :valOobj
+    def __call__(self):
+        return self.___()
+
+class public:
+    def __init__(self,valOobj:Any):
+        self._ = valOobj
+    def __call__(self):
+        return self._
+    
 @cfunc
 def gtime(appn:str):
     from os import system
@@ -135,6 +243,12 @@ def gtime(appn:str):
     log("End Time %s" % str(get))
     log("\nTotal : %s" % str(get-gt))
     return get-gt
+
+def stdconvert(_2type,val): return ((_2type)(val));
+def qconvert(_2type,val):
+    try: return stdconvert(_2type,val);
+    except: return None;
+
 @cclass
 class function():
     options = ['name:str','args=[]','variables={}','lines=[]','function(name="Example",args=["Name"],variables={"GetName":"Name"},lines=["print(GetName)"])']
@@ -144,14 +258,9 @@ class function():
         self.args = args
         self.vars = variables
         self.lines = lines
-    def run(self,args={}):
-        globals()
-        __cx = self.exe()
-        __CX = __cx
-        sargs = str(args)
-        sargs = sargs.strip('{').rstrip('}').replace(':','=').replace('\'','')
-        exec("exec(f\"{out = __cx(\{sargs\})}\")",globals())
-        return out
+    def run(self,args=()):
+        runned = stdn.threading.Thread(target=self.exe(),args=args)
+        runned.start()
     def ___make(self):
         out = 'def '
         print('Start Making...')
@@ -234,7 +343,69 @@ def _tnow():
     return now()
 
 
-class UnkownError(Exception):
+def User():
+    def __init__(self,username:str):
+        self.uname = username
+    @property
+    def hasaccess(self):
+        if self.uname in os.getlogin():
+            return True
+        return False
+    def _self(self):
+        return self
+
+
+class user():
+    user_db_path = './users'
+    root_db_path = './root'
+    def __init__(self):
+        self.init_path()
+    def init_path(self):
+        self.udbp = user.user_db_path
+        self.rdbp = user.root_db_path
+        self.user_list = []
+        self.root_list = []
+    def new_user(self,user):
+        self.user_list.append(user)
+        return True
+    def save_user(self,token,save_by:str=None,userid=-1):
+        if save_by:
+            usave = open(self.udbp+'/'+str(save_by),'wb')
+            stdn.pickle.dump({'token' : token, 'user' : self.user_list[userid]},usave)
+            usave.close()
+        else:
+            usave = open(self.rdbp+'/'+str(user_list[userid].uname),'wb')
+            stdn.pickle.dump({'token' : token, 'user' : self.user_list[userid]},usave)
+            usave.close()
+    def quser_list(self):
+        return self.user_list
+    def qroot_list(self):
+        return self.root_list
+    def user_has_access(self,userid:int):
+        return self.user_list[userid].hasaccess
+    
+    
+class Edit():
+    def __init__(self,file:str):
+        if not(pl.Path(file).is_file()):
+            raise FileNotFoundError(f'Cannot find {file}')
+        self._file = file
+    def clear(self):
+        with open(self._file,'w')as(f):
+            f.write('');f.close()
+    def write(self,text:str,overwrite=False,is_line=True):
+        with open(self._file,('a') if not overwrite else 'w')as(f):
+            (f.write(text))if not(is_line)else(f.writelines([text]));f.close()
+        return True
+    def read(self,linen:int=None):
+        if(linen):
+            with open(self._file,'r')as(f):
+                f.seek(linen);line = f.readline();f.close();return line
+        else:
+            with open(self._file,'r')as(f):
+                f.seek(0);lines = f.read();f.close();return lines
+        
+class UnknownError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
 
@@ -271,6 +442,176 @@ class InvalidMODError(Exception):
 class InvalidPrinterArgumentError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
+        
+        
+
+
+
+
+class qshell():
+    def __init__(self):
+        import win32console
+        self.con = win32console
+        self.__log = set()
+    def Test_rightpointer(self):
+        sell = qshell()
+        print(Fore.CYAN)
+        print(sell.right_pointer(4,8,20,7,[f'{Back.RESET}\t(object at {stdn.random.randint(9999,99999)})']*20,from_s_tt=Back.RED,end_point=Back.RESET+'(object ended at here)',inline='~',nextl='  '));
+        print(Fore.RESET)
+    def Test_method(self):
+        myl = ["Windows","Linux","MacOs"]
+        self.ask(myl,title="What Is You'r Favorite os?",e="Choose one os:")
+        cmd = self.set_method()
+        print(f"Input Of set_method Is:[{cmd}] Type:[{type(cmd)}]")
+        fprint(f"Oh Nice os [{myl[int(cmd)]}]",cs=Fore.BLUE)
+    def Test_KEvent(self):
+        myl = ["Windows","Linux","MacOs"]
+        self.ask(myl,title="What Is You'r Favorite os?",e="Choose one os:")
+        cmd = self.set_method('KEYEVENT')
+        sys.stdout.write(cmd+'\n')
+        print(f"Input Of set_method Is:[{cmd}] Type:[{type(cmd)}]")
+        fprint(f"Oh Nice os [{myl[int(cmd)]}]",cs=Fore.BLUE)
+    def set_method(self,methodt='GET'):
+        if methodt.upper() == 'GET':
+            cmd = input()
+            return cmd
+        elif methodt.upper() == 'KEYEVENT':
+            event = stdn.keyboard.read_key()
+            return event
+        else:
+            error = eprint("class","shellini","InvalidType","Type Of Argument[methodt] In Function self.set_method Is Invalid!")
+            self.__log.add(list(error))
+    def clear(self):
+        from os import system
+        from platform import platform
+        platform = platform().upper()
+        if "LINUX" in platform or "MAC" in platform:
+            system('clear')
+        elif "WINDOWS" in platform:
+            system('cls')
+        else:
+            eprint("class/function",'shellini/clear','InvalidSystemPlatform','Cant Analize Your SystemPlatform!')
+    def box(self,linelen:int,lines:list,up:str='-',down:str='-',right:str='|',left:str='|'):
+        out = ''
+        out += f'{left} {linelen*up} {right}\n'
+        for i in range(len(lines)):
+            if len(lines[i])-2==linelen:
+                out+=f"{left} "+str(lines[i])+f" {right}\n"
+            else:
+                space_need = 0
+                ln = abs(len(lines[i])-linelen)
+                if ln%2==0:
+                    out+=f'{left} '+(' '*int(ln/2))+lines[i]+(' '*int(ln/2))+f' {right}\n'
+                else:
+                    out+=f'{left} '+(' '*int(ln/2))+lines[i]+(' '*int(ln/2))+f' {right}\n'
+        out+=f'{left} {linelen*down} {right}'
+        return out
+    def right_pointer(self,from_:int,from_s:int,lines_n:int,to_s:int,everyline_text:list,from_s_text:str='\t(object started at here)',end_point:str='(object ended at here)',from_s_tt:str=' ',inline:str='-',nextl:str='|'):
+        out = ''
+        for i in range(from_s):
+            out +=from_s_tt
+        out+='/'
+        for i in range(from_):
+            out +=inline
+        out+=from_s_text+'\n'
+        for i in range(lines_n):
+            out+=(from_s_tt*from_s)+f'{nextl}{everyline_text[i]}\n'
+        out+=(from_s_tt*from_s)+'\\'+(inline*to_s)+'>'+end_point
+        return out
+        
+    def ask(self,args:list,title="Choose One",titlec=Fore.YELLOW,typE='n',c=Fore.GREEN,e=':',ec=Fore.RED,ae='\n'):
+        if typE == 'n':
+            fprint(title,cs=titlec)
+            for i in range(len(args)):
+                fprint(f"[{i}]{args[i]}",cs=c)
+            print(ae,end='')
+            fprint(e,cs=ec,e='')
+        else:
+            error = eprint("class","shellini","InvalidType","Type Of Arguement[typE] In Function self.fprint Is Invalid!")
+            self.__log.add(list(error))
+
+
+def sl(obj,**kwargs):
+    for k in kwargs.keys():
+        if k == 'item_rev':
+            try:
+                out = reversed(out)
+            except:
+                out = reversed(obj)
+        elif k == 'callby':
+            try:
+                out = k['callby'](out)
+            except:
+                out = k['callby'](obj)
+        elif k == 'castby':
+            try:
+                out = ((k['castby'])(out))
+            except:
+                out = ((k['castby'])(obj))
+        elif k == 'check_by':
+            try:
+                out = (True)if(k['check_by']==out)else(False)
+            except:
+                out = (True)if(k['check_by']==obj)else(False)
+        elif k == 'noncheck_by':
+            try:
+                out = (True)if(k['check_by']!=out)else(False)
+            except:
+                out = (True)if(k['check_by']!=obj)else(False)
+        else:
+            continue
+    try:
+        methods = dir(out)
+        for method in methods:
+            if re.match('^__\w+__$',method):
+                nname = method.strip('_')
+                setattr(out,nname,getattr(out,method))
+            else:
+                continue
+        return out
+    except NameError:
+        methods = dir(obj)
+        for method in methods:
+            if re.match('^__\w+__$',method):
+                nname = method.strip('_')
+                try:
+                    setattr(obj,nname,getattr(obj,method))
+                except:
+                    continue
+            else:
+                continue
+        return obj
+    except Exception as err:
+        raise Exception(err)
+
+
+class _Base_ForEach:
+    def __init__(self,loop):
+        self._loop = loop
+        self._inloop = 0
+    def nt(self):
+        return self._loop[self._inloop+1]
+    def bk(self):
+        return self._loop[self._inloop-1]
+    def seek(self,offset):
+        self._inloop = offset
+    def getLast(self,append=True):
+        if append:
+            self._inloop += 1
+            return self._loop[self._inloop-1]
+        else:
+            return self._loop[self._inloop]
+        def __getitem__(self,other):
+            return self._loop[other]
+    def loopon(self,parse_on:function):
+        for item in self._loop:
+            yield parse_on(item)
+    def do(self,parse_on:function):
+        return parse_on(self._loop)
+
+def foreach(obj):
+    return _Base_ForEach(obj)
+
 @cclass
 class belog():
     BELOG_COLORS = Fore
@@ -448,9 +789,9 @@ class belog():
         else:
             raise Exception ("Invalid Argument!")
 
-class learn_Class(_Learn):
+class learn_Class():
     def __init__(self):
-        super().__init__()
+        ...
     def example(self):
         return "obj4mk_class = Class(\"MyClass\",functions={\"__init__\" : {\"name\" : \"__init__\",\"args\" : (\"self\",),\"lines\" : [\"print(\'Hello Class!\')\"]}})"
     def how2use(self):
@@ -458,22 +799,6 @@ class learn_Class(_Learn):
     def help(self):
         return 'use:\nlearn.example|learn.how2use'
 
-def XSyntax(code):
-    code = code.decode()
-    syntax = ''
-    syntax = code.replace('xlib','omg.etu')
-    return syntax.encode('utf-8')
-
-class x(object):
-    def __init__(self):
-        super().__init__()
-    def _execute_code(self,Code:str):
-        xret = exec ("xlib = 'omglib';")
-        return xret
-    def code(self,code):
-        return self._execute_code(XSyntax(code.encode('utf-8')).decode())
-    
-        
 
 @cclass
 class Class():
@@ -518,9 +843,10 @@ class Class():
         if not self.__Readyed:
             self.__ready()
         tbn = '\n\t'
-        first = str(f"class {self.ClassName}(object):" + tbn)
-        
-        
+        first = str(f"class {self.ClassName}(")
+        for erase in self.ClassErase:
+            first+=str(erase)+','
+        first += "):" + tbn
         Test(first+"pass")
         for i in self._funcs:
             first += i + tbn
@@ -557,7 +883,49 @@ def sclass(name:str,p_String:str):
     return __NoneSpaceGlob
 
 
+class File:
+    def __init__(self,fpath):
+        self._fpath = stdn.pathlib.Path(fpath) if (stdn.pathlib.Path(fpath)).exists() and (stdn.pathlib.Path(fpath).is_file()) else None
+        if not self._fpath:
+            raise FileNotFoundError ("")
+        self.set_infobypath(self._fpath)
+    def set_infobypath(self,fpath:stdn.pathlib.Path):
+        if type(fpath) == str:
+            fpath = stdn.pathlib.Path(fpath)
+        self._fpath = fpath if (fpath).exists() and (fpath).is_file() else None
+        if not self._fpath:
+            raise FileNotFoundError ("")
+        self._fname = fpath.name
+        self._fsuffix = fpath.suffix
+    def send_info(self):
+        return {"file-name":self._fname,"file-suffix":self._fsuffix,"file-path":str(self._fpath.absolute())}
 
+class dotPy:
+    def __init__(self,file):
+        if type(file) != File:
+            raise TypeError (f"Invalid Type Of Object. {File}")
+        self._modules = []
+        self._info = file.send_info()
+    def run(self,switch=''):
+        stdn.os.system(sys.executable+' '+self._info['file-path']+' '+switch)
+        return 1
+    def import_file(self)->type(sys):
+        _path = pl.Path(self._info['file-path']).parent
+        sys.path.append(str(_path))
+        return stdn.importlib.import_module(self._info['file-name'].strip('.py'))
+
+class dotJson:
+    def __init__(self,file):
+        if type(file) != File:
+            raise TypeError (f"Invalid Type Of Object. {File}")
+        
+        self._info = file.send_info()
+    def read(self):
+        return stdn.json.load(open(self._info['file-path']))
+    def readstr(self):
+        return open(self._info['file-path']).read()
+    def readpy(self):
+        return eval(open(self._info['file-path']).read())
 
 def Exec(string):
     try:
@@ -1079,7 +1447,7 @@ class Vbin():
         if type(item) is not int:
             raise TypeError ("Invalid Type.")
         return self.obj[item]
-        
+
 
 function('SunNum',["text:str","gq='x'"],{"OMGFLAG": True,"output":[]},["for i in range(len(str(text))):output.append(str(text).replace(str(text)[i],gq))",'return output']).exe()
 
@@ -1093,5 +1461,20 @@ def AnimationPrint(alist:list,timesleep=0.25):
         print(i,end='\r',flush=True)
         stdn.time.sleep(timesleep)
 
+
+def MiniTime(s,f):
+    def stdf():
+        print('\a',end='')
+    def sett(s):
+        time.sleep(s)
+        f()
+    stdn.threading.Thread(target=sett,args=(s,))
+
+def Test_BForce(a,b,c,d,e,f):
+    TEST_COMPUTING_SPEED = 2.
+    while True:
+        g = stdn.random.randint(e,f+e)
+        if (a+b+c+g)==(d+e+f):
+            return g
 
 

@@ -1,6 +1,6 @@
-from . import Project.init as init
+from Project import init
 init()
 
 
-"""Your Main.py Source Code"""
+"""Your main.py Source Code"""
 
