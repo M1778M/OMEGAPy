@@ -64,9 +64,9 @@ class _ETU_MULTY_COMMENT:
 ###############################################################################################
 #----------------------------------------- Etu Basics ----------------------------------------
 _ETU_CONNECTIONS = _ETU_COMMENT("Python3Api")
-_ETU_LISENCE = _ETU_COMMENT("OMEGAPy-NoneSpaceSTDOpenLisence")
+_ETU_LICENSE = _ETU_COMMENT("OMEGAPy-NoneSpaceSTDOpenLicense")
 _ETU_VERSION = Var(.02)
-_ETU_ALGORITM = Var("By OMEGAPy_ETUx_WindowsBased32")
+_ETU_ALGORITHM = Var("By OMEGAPy_ETUx_WindowsBased32")
 _ETU_SYNTAX = Var("By Python3-NoneSpaceSyntax")
 _ETU_STANDARD_MODULES = _ETU_MULTY_COMMENT('stdn','cython','sys','re','os','numpy','pathlib','colorama','error_handling','typing','tools')
 _ETU_MEMORY_MANAGEMENT = _ETU_COMMENT("By Python3")
@@ -342,48 +342,6 @@ def _tnow():
         return str(datetime.now())
     return now()
 
-
-def User():
-    def __init__(self,username:str):
-        self.uname = username
-    @property
-    def hasaccess(self):
-        if self.uname in os.getlogin():
-            return True
-        return False
-    def _self(self):
-        return self
-
-
-class user():
-    user_db_path = './users'
-    root_db_path = './root'
-    def __init__(self):
-        self.init_path()
-    def init_path(self):
-        self.udbp = user.user_db_path
-        self.rdbp = user.root_db_path
-        self.user_list = []
-        self.root_list = []
-    def new_user(self,user):
-        self.user_list.append(user)
-        return True
-    def save_user(self,token,save_by:str=None,userid=-1):
-        if save_by:
-            usave = open(self.udbp+'/'+str(save_by),'wb')
-            stdn.pickle.dump({'token' : token, 'user' : self.user_list[userid]},usave)
-            usave.close()
-        else:
-            usave = open(self.rdbp+'/'+str(user_list[userid].uname),'wb')
-            stdn.pickle.dump({'token' : token, 'user' : self.user_list[userid]},usave)
-            usave.close()
-    def quser_list(self):
-        return self.user_list
-    def qroot_list(self):
-        return self.root_list
-    def user_has_access(self,userid:int):
-        return self.user_list[userid].hasaccess
-    
     
 class Edit():
     def __init__(self,file:str):
