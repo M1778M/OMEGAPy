@@ -1,6 +1,6 @@
 # OMEGAPy-Project
 
-## COMING SOON
+## COMING SOON (Windows Only)
 
 <h2 style="box-shadow:-2px 1.5px 3px rgb(68,68,68);padding:4px">This project was created to make Python easy to use</h2>
 
