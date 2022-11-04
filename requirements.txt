@@ -2,9 +2,5 @@ numpy
 pandas
 matplotlib
 pathlib
-sqlite3
 flask
 PyQt5 
-hashlib 
-pickle 
-httpx
