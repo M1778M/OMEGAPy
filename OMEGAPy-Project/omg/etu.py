@@ -1,13 +1,11 @@
 ############  Public Modules
 
 try:
-    from cython import cfunc,cclass,int as c_int
     from colorama import init,Fore,Back
     from numpy import array
     from typing import Any
     import pathlib as pl
     import numpy as np
-    import cython
     import sys
     import re
     import os
@@ -90,11 +88,12 @@ class Condition():
     def _check(self):
         return self.cs
 
-@cclass
+
+
 class c_for():
     def std_print(i):
         print(i)
-    def __init__(self,i:c_int,condition:Condition,job:str,work:type(nothing)):
+    def __init__(self,i,condition:Condition,job:str,work:type(nothing)):
         self.i = i
         self.cnd = condition
         self.job = job
@@ -136,7 +135,6 @@ class Fail(Warning):
         super().__init__(msg)
     
 
-@cclass
 #------------------------------ PyObject
 class PyObject(object):
     def __init__(self,*args):
@@ -194,7 +192,7 @@ class PyObject(object):
         self.__save_range.append(obj)
     def deflist(self):
         return self.__save_range
-PyObject = cython.typedef(PyObject)
+PyObject = (PyObject)
 #---------------------------------
 
 class CoreException(Exception):
@@ -230,7 +228,6 @@ class public:
     def __call__(self):
         return self._
     
-@cfunc
 def gtime(appn:str):
     from os import system
     from time import time
@@ -249,7 +246,6 @@ def qconvert(_2type,val):
     try: return stdconvert(_2type,val);
     except: return None;
 
-@cclass
 class function():
     options = ['name:str','args=[]','variables={}','lines=[]','function(name="Example",args=["Name"],variables={"GetName":"Name"},lines=["print(GetName)"])']
         
@@ -570,7 +566,6 @@ class _Base_ForEach:
 def foreach(obj):
     return _Base_ForEach(obj)
 
-@cclass
 class belog():
     BELOG_COLORS = Fore
     BELOG_BGCOLORS = Back
@@ -758,7 +753,6 @@ class learn_Class():
         return 'use:\nlearn.example|learn.how2use'
 
 
-@cclass
 class Class():
     def __init__(self,class_name,class_erase=['object'],functions={"__init__" : {"name" : "__init__","args":("self",),"lines":["self.by = 'etu.Class'","print(self.name)"]}}):
         self.ClassName = class_name
@@ -895,7 +889,6 @@ def Exec(string):
 
 
 
-@cclass
 class cfs:
     def __init__(self,x=0,y=0):
         self.x = x
@@ -1183,7 +1176,6 @@ class cfs:
 
 
 
-@cclass
 class new():
     def __init__(self,ObjTN):
         self.__cject = ObjTN
@@ -1192,7 +1184,7 @@ class new():
             super(new,self).__init__()
             self.val = self.__tp(ObjTN)
         else:
-            raise TypeError ('Invalid Type!\nExampleUse : new(int(4))')
+            raise TypeError ('Invalid Type.')
     def __repr__(self):
         return f"{new} [-] <Value {str(type(self.__cject))} {self.val}>"
     def dot(self):
@@ -1205,14 +1197,12 @@ class new():
 _xy = cfs()
 
 
-@cfunc 
 def printc(text:str,ctext:str,timesleep=0.2):
     print(text,end='\r')
     stdn.time.sleep(timesleep)
     print(ctext,end='')
 
 
-@cclass
 class AnimationGraph(): 
     def __init__(self,fode=[0,100]):
         import pyfiglet as __pyf
@@ -1234,7 +1224,6 @@ class AnimationGraph():
     def RenderGraphText(self,bText:str):
         pass
 
-@cclass
 class AnimationLoader():
     def __init__(self,backText="loading",nextText=None,loaderlength:int=1,loaderstyle={"color":Fore.GREEN,"BackGround":Back.WHITE},end='\n'):
         self.bt = backText
@@ -1274,7 +1263,6 @@ class AnimationLoader():
             self.load += li
             self.printf(self.load)
 
-@cfunc
 def easy_loading(text='loading',armor='[',armorb=']',sleep=0.1,loader='-',range_=10):
     text = text +' '+ armor
     for i in range(range_):
@@ -1283,7 +1271,6 @@ def easy_loading(text='loading',armor='[',armorb=']',sleep=0.1,loader='-',range_
         stdn.time.sleep(sleep)
     print(text+armorb,end='\n')
 
-@cclass
 class LoadingAnimation():
     defualt_color = Fore.WHITE
     def __init__(self):
@@ -1342,7 +1329,6 @@ class LoadingAnimation():
             else:
                 raise TypeError (f"Can't Use ActionType({readact[i]})!")
 
-@cclass
 class AnimationText():
     def __init__(self):
         self._antxt = None
@@ -1409,10 +1395,9 @@ class Vbin():
 
 function('SunNum',["text:str","gq='x'"],{"OMGFLAG": True,"output":[]},["for i in range(len(str(text))):output.append(str(text).replace(str(text)[i],gq))",'return output']).exe()
 
-function('SensorInt',['Num:int','SL:int'],{'L':'len(str(Num))','SR':'str(Num)','SRD':'SR[SL:]','SRD2':'SR[:SL]','flag':0},['for i in range(len(SRD)):flag+=1','for i in range(flag):SRD2+=\'*\'','return SRD2']).exe()
+function('CensorInt',['Num:int','SL:int'],{'L':'len(str(Num))','SR':'str(Num)','SRD':'SR[SL:]','SRD2':'SR[:SL]','flag':0},['for i in range(len(SRD)):flag+=1','for i in range(flag):SRD2+=\'*\'','return SRD2']).exe()
 
 function('rtu_anloader',['text','etext','anim_len'],{'a': "AnimationText()"},['a.set_animation(["/","-","\\\\"]*anim_len+["~"])','a.set_text(text)','a.set_end_text(etext)','a.make_animation()','return a']).exe()
-@cfunc
 def AnimationPrint(alist:list,timesleep=0.25):
     print(alist[0],end='\r')
     for i in alist[1:]:
