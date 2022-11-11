@@ -324,6 +324,9 @@ class function():
         main = main.format(self.name,defArgs_t)
             
         return main
+    @staticmethod
+    def execute(code):
+        exec(code)
     def exe(self):
         exec(self.___make(),globals())
         exec(f"_function__NoneSpaceGlob = {self.name}",globals())
@@ -364,6 +367,8 @@ class UnknownError(Exception):
         super().__init__(msg)
 
 class belog_cl():pass
+
+
 
 def __belog_Excute_Colors():
     execute_code = '{}.{}'
