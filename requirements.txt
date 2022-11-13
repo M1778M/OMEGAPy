@@ -4,4 +4,4 @@ matplotlib
 pathlib
 flask
 PyQt5 
-scikit-learn
+cython
