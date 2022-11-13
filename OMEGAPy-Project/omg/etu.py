@@ -4,6 +4,7 @@ try:
     from colorama import init,Fore,Back
     from numpy import array
     from typing import Any
+    #from olib.etu import Test_BForce, cfs, Class, function, gtime
     import pathlib as pl
     import numpy as np
     import sys
@@ -1417,12 +1418,3 @@ def MiniTime(s,f):
         time.sleep(s)
         f()
     stdn.threading.Thread(target=sett,args=(s,))
-
-def Test_BForce(a,b,c,d,e,f):
-    TEST_COMPUTING_SPEED = 2.
-    while True:
-        g = stdn.random.randint(e,f+e)
-        if (a+b+c+g)==(d+e+f):
-            return g
-
-
