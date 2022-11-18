@@ -29,6 +29,12 @@ def declare(vn,vt,vv):
         exec(f'{vn} = {vt}(xlib.{vv})',globals())
     return xlib.declare(vt,vv)
 
+"""
+int a= 12
+list x= array([1,2,3,4])
+print(a,x);
+"""
+
 def pytranslate(source,splitBy=';'):
     source = source.split(splitBy)
     variables = []
@@ -37,13 +43,13 @@ def pytranslate(source,splitBy=';'):
         variables.append((name,id))
     
     for line in source:
-        if re.match(r'\s*\w+\s*\w*\s*=\s*.*',line):
+        if re.match(r'\s*\w+\s*\w*\s*=\s*.*',line): # Variables
             varname = re.search(r'\s+\w+\s*=',line).group().strip('=').strip(' ')
             varval = re.search(r'=\s+.+\s*',line).group().strip('=')
             vartype = re.search(r'^\s*\w+\s+',line).group().strip(' ')
             id = declare(varname,vartype,varval)
             savev(varname,id)
-        elif re.match(r'\s*\w+\(.*\)\s*',line) and '=' not in line:
+        elif re.match(r'\s*\w+\(.*\)\s*',line) and '=' not in line: # Functions
             funcname = re.search(r'\s*\w+\(',line).group().strip('(')
             args = getArg(re.search(r'\(.*\)',line).group())
             funcjoin(funcname,args)

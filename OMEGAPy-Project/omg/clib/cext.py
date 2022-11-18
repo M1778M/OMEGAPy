@@ -1,6 +1,48 @@
 import threading as _threading
+from numpy import array,ndarray
 from sys import getsizeof as sizeof
+from cython import inline
 _defined_object = {}
+
+
+class cint(int):
+    def __init__(self,pyint=0):
+        self.value = pyint
+        super(cint,self).__init__()
+class aint(ndarray):
+    def __init__(self,pylist=[]):
+        self.value=array(pylist)
+        super(aint,self).__init__()
+
+class cdouble(float):
+    def __init__(self,pyfloat=0.):
+        self.value=float(pyfloat)
+        super(cdouble,self).__init__()
+
+class unsigned(int):
+    def __init__(self,cint_):
+        self.value = abs(cint_.value)
+        super(unsigned,self).__init__()
+
+class cchar(str):
+    def __init__(self,pystr='\0'):
+        if len(pystr) > 1:
+            self.value = pystr[0]
+            raise ValueError
+        else:
+            self.value = pystr
+        super(cchar,self).__init__()
+class achar(str):
+    def __init__(self,pystr):
+        self.value = pystr
+        super(achar,self).__init__()
+    def addchar(self,cchar_):
+        self.value+=char_.value
+
+def PyInput():
+    return input()
+
+
 
 class _function():
     options = ['name:str','args=[]','variables={}','lines=[]','function(name="Example",args=["Name"],variables={"GetName":"Name"},lines=["print(GetName)"])']
@@ -171,6 +213,11 @@ class cbs():
     def __call__(self,object):
             return self._structTranslated2Class.exe()
 classbystruct = cbs;
+
+
+def c_inline(INLINE_F):
+    return inline(INLINE_F)
+
 
 class rstruct():
     def __init__(self,objects):

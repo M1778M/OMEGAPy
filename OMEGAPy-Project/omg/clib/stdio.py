@@ -1,8 +1,17 @@
 from .cext import *
 from io import SEEK_END,SEEK_CUR,SEEK_SET
-
+from msvcrt import *
 char = '\0'
 
+def scanf(stack:int):
+    _ = achar()
+    for i in range(stack):
+        _.addchar(getch())
+    return _
+
+def strinput():
+    getInput = PyInput()
+    return getInput
 class FILE:
     def __init__(self):
         ...
@@ -41,5 +50,4 @@ def printf(format:str,*args)->str:
     print(format%args,end='')
 
 def read_char()->char:
-    from keyboard import read_key
-    return read_key(True)
+    return getch()

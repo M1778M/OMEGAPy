@@ -9,3 +9,5 @@ def calloc(m,type_):
 class BIN:
     NONETYPED_OBJECT = type(None)
     NONEFORMAT = None
+
+
