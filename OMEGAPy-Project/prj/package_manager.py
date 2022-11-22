@@ -1,10 +1,9 @@
 import os
-
+import configparser
 class ConfigInvalidItemError(Exception):
     def __init__(self,msg):super().__init__()
 
 def auto_vpath():
-    import configparser
     cp = configparser.ConfigParser()
     cp.read('../core/config.ini')
     try:

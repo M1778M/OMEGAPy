@@ -1,4 +1,4 @@
-""" OMG LIB VERSION 0.00
+""" OMG LIB VERSION 0.0.1
 """
 """ Simple Lib Compiler FExample (xor,plus,sub,mul,flrd)
 xor(3,3,3,3,3,3,3,3,3,3);SimpleRuner();

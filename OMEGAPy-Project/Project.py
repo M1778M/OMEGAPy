@@ -41,15 +41,6 @@ if __name__ == '__main__':
     #calling addargs 
     addargs()
     
-    #def check():
-        #if args.command.upper()=='install'.upper():
-            #parser.add_argument('install',help='Add And Installing Package For Use In Project',type=str)
-            #print(f"command : \n{args.command}\n\n\n\ninstall : {args.install}")
-        #parser.add_argument('runc',help='Running Command With VirtualEnvironment',type=str)
-        #parser.add_argument('rmpkg',help='Uninstall Package From VirtualEnvironment',type=str)
-        #parser.add_argument('run',help='Run The Project',type=str)
-        #parser.add_argument('show',help='Get Arguments (config , ProjectFiles,Packages)',type=str)
-    # processing args
     
     args = parser.parse_args()
     def find_venv():
