@@ -25,10 +25,11 @@ def __prj_str():
 prj_str = lambda : __prj_str()
 
 
-defualt_str = """[omegapy-core-initcode]
+default_str = \
+"""[omegapy-core-initcode]
 code=rndn
 [license]
-projectlicense=omegapy-defualt-license
+projectlicense=omegapy-default-license
 [about-project]
 project_name=nop
 project_password=sh
@@ -38,9 +39,10 @@ project_history=dateUtime
 project_id=zbotid
 project_code=zbotc"""
 
-project_str = """
+project_str = \
+"""
 [license]
-projectlicense=omegapy-defualt-license
+projectlicense=omegapy-default-license
 [about-project]
 project_name=nop
 project_password=sh
@@ -50,7 +52,7 @@ project_history=dateUtime
 project_id=zbotid
 project_code=zbotc"""
 #--------------------------------------
-defualt_dict = {
+default_dict = {
 "omegapy-core-initcode" : 
     {
 "code" : "rndn"
@@ -58,7 +60,7 @@ defualt_dict = {
 
 "license" : 
     {
-"projectlicense" : "omegapy-defualt-license"
+"projectlicense" : "omegapy-default-license"
     },
 
 "about-project" : 
@@ -132,7 +134,7 @@ def reset():
             prj_ini.write(f)
             f.close()
     prj_ini = ConfigParser()
-    prj_ini.read_dict(defualt_dict)
+    prj_ini.read_dict(default_dict)
     edit_ini()
     path = self_path+'..\\'
     copyfile(path+".Core\\main.copy",path+"OMEGAPy-Project\\main.py")
@@ -295,7 +297,7 @@ def CheckConfig():
 
 class EditConfig(nonSTD):
     nonStandardFunction = True
-    def project_edit_from():
+    def project_edit_form():
         import __projc__
         def edit_ini():
             with open(self_path+'cfg.ini','w') as f:
@@ -319,13 +321,16 @@ class EditConfig(nonSTD):
             else:
                 return False                     
         def vName(name:str):
-            if ' ' in name or '-' in name:
+            NameValidChars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_.'
+            Nums = '1234567890'
+            v=True
+            for c in name:
+                if c not in NameValidChars:
+                    v = False
+                    return v
+            if name[0] in Nums:
                 return False
-            try:
-                if int(name[0]) or int(name[0]) <= 0:
-                    return False
-            except:
-                return True
+            return v
         def __checkpass(passwd):
             
             _Space= ' '
@@ -395,7 +400,7 @@ class EditConfig(nonSTD):
 
         def vPassword(passwd:str):
             score = __checkpass(passwd=passwd)
-            if score > 2:
+            if score >= 2:
                 return True
             else:
                 return False
@@ -441,35 +446,35 @@ class EditConfig(nonSTD):
                     obj.fprint([listoc[int(cmd)]],title=f'change value',e=f'value from \'{prj_ini["about-project"][founded]}\' change to :')
                     cmd = obj.set_method()
                     prj_ini['about-project'][founded]
-                    if cmd != 'dont change':
+                    if cmd.lower() != 'dont change' or cmd.lower() != 'exit' or cmd.lower() != 'quit':
                         if founded == 'project_name':
                             if vName(founded):
                                 prj_ini['about-project']['project_name'] = cmd
                                 edit_ini()
                             else:
                                 eprint("function","EditFormWith","InvalidChar","Can't Use space [' '] and Dash ['-'] In Your ProjectName")
-                                sleep(5)
+                                sleep(1)
                         elif founded == 'project_password':
                             if vPassword(cmd):
                                 prj_ini['about-project']['project_password'] = cmd
                                 edit_ini()
                             else:
                                 eprint("function","EditFormWith","EasyPassword","Your Password Is Not Secure! Secure Your Password.")
-                                sleep(5)
+                                sleep(1)
                         elif founded == 'project_country':
                             if vCountry(cmd):
                                 prj_ini['about-project']['project_location'] = cmd
                                 edit_ini()
                             else:
                                 eprint("function","EditFormWith","InvalidCountry","Your Country Is Not Valid!")
-                                sleep(5)
+                                sleep(1)
                         elif founded == 'project_location':
                             if vPath(cmd):
                                 prj_ini['about-project']['project_location'] = cmd
                                 edit_ini()
                             else:
                                 eprint('function','EditFormWith','InvalidPath',f'Path {cmd} Is Not Valid Path!')
-                                sleep(5)
+                                sleep(1)
                     else:
                         pass
                 else:
@@ -478,7 +483,7 @@ class EditConfig(nonSTD):
             Test = CheckConfig()
             fprint(f"Do You Want Change All Configures or Not Completed Configures [Y=All,n=NotCompleted]?",cs=Fore.GREEN,e='')
             ques = input()
-            if 'Y' in ques.upper():
+            if 'Y' == ques.upper().strip(' ').rstrip(' '):
                 EditFormWith()
             else:
                 listoo = list(prj_ini['about-project'])
@@ -497,13 +502,13 @@ class EditConfig(nonSTD):
                 EditFormWith(listop)
         def ask():
             question = input(Fore.GREEN + "Your project configuration file is done. Do you want to edit it again[Y,n]?"+Fore.RESET)
-            if 'y' in question or 'Y' in question:
+            if 'y' == question.strip(' ').rstrip(' ') or 'Y' == question.strip(' ').rstrip(' '):
                 call("project_edit_form","ask")
-            elif 'n' in question or 'N' in question:
+            elif 'n' == question.strip(' ').rstrip(' ') or 'N' == question.strip(' ').rstrip(' '):
                 print(Fore.YELLOW+Back.GREEN+"The operation was canceled!"+Fore.RESET+Back.RESET)
                 return False
             else:
-                print(Back.WHITE + Fore.RED + "Invalid Input Please Type Y,y For Continue or N,n For Cancel!"+Fore.RESET+Back.RESET)	
+                print(Back.WHITE + Fore.RED + "Invalid Input Please Type Y,y For Continue or N,n For Canceling!"+Fore.RESET+Back.RESET)	
 
         if Test[0] == True:
             ask()
