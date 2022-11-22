@@ -84,6 +84,17 @@ class STD_CONFIGFILE_NOTFOUND(Exception):
     def __init__(self,msg):
         super().__init__(msg)
 
+def _cleansp(ls):
+    out=[]
+    for i in ls:
+        if i[0]==' ' or i[0]=='\t' or i[-1]==' ' or i[-1]=='\t':
+            out.append(i.strip(' ').strip('\t').rstrip(' ').rstrip('\t'))
+    for i in ls:
+        if ' ' in i or '\t' in i:
+            _cleansp(out)
+    return out
+
+
 class stdc:
     def __init__(self):
         self._init_ok()
@@ -493,6 +504,7 @@ class EditConfig(nonSTD):
                 obj.fprint(listoo,title='add Configure Item',e='Enter Your Chooses example \'project_name, project_password\' split with \',\' -> ',ec=Fore.BLUE)
                 cmd = obj.set_method()
                 cmd = cmd.split(',')
+                cmd = _cleansp(cmd)
                 for i in cmd:
                     if prj_ini['about-project'][i]:
                         listop.append(i)
