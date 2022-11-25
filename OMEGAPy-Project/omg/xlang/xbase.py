@@ -4,6 +4,7 @@ from .clib import *
 from .xlib import *
 from . import *
 from threading import Thread
+from importlib import import_module as _imp
 global MetaVar
 global xexec
 def _split_line_by_space(line):
@@ -216,7 +217,7 @@ class xi:
         for Item in config:
             if config[Item]['type'] == 'PyRun':
                 syntax = self.xisyntax(config[Item])
-                self._execute(syntax)
+                self._execute(_fix(syntax,self.pyrun_key_words_rep))
             elif config[Item]['type'] == 'Shell':
                 syntax = self.xisyntax(config[Item])
                 if self.ShellRun == 'normal':
@@ -228,6 +229,58 @@ class xi:
             else:
                 raise CompileError('Invalid Block.')
         return 1
+_VALID_TOKENS = ["XInterX"]
+class Syntax:
+    @staticmethod
+    def from_dict(dict_,modules=[]):
+        def Make_Token():
+            global _VALID_TOKENS
+            import random as rand
+            in_ = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+            lenght=2**4
+            out=''
+            for i in range(lenght):
+                out+=in_[rand.randint(0,lenght)]
+            _VALID_TOKENS.append(out)
+            return out
+        im = False
+        if modules:
+            im=True
+            for module in modules:
+                try:
+                    _imp(str(module))
+                except ImportError:
+                    print(f"Cannot import '{module}' because it raises 'ImportError'")
+        make=Syntax()
+        make._syndict=dict_
+        make._tokenize(Make_Token())
+        return make
+    def __init__(self):
+        self.__valid = False
+    def press_on(self,compiler:xi):
+        try:
+            if self.check_valid():
+                for item in list(self._syndict):
+                    compiler.pyrun_key_words_rep[item]=self._syndict[item]
+                return compiler
+            else:
+                return False
+        except Exception as err:
+            return err
+    def check_valid(self):
+        global _VALID_TOKENS
+        try:
+            if self.token in _VALID_TOKENS:
+                self.__valid = True
+                return True
+            else:
+                return False
+        except:
+            return False
+    def _tokenize(self,token):
+        self.token=token
+        return self.check_valid()
+
 Xi=xi()
 
 
