@@ -5,22 +5,26 @@
 
 $PyRun xgen_readlinex
 # class ReadLine reads a line simply
+from sys import stdin , stdout
 !define "ReadlineException" True
 
 PyClass ReadLine:
 	PyDef __init__(self):
 		self.initialize = True
 		self.runner =     "xiv"
-		self.input_method = input # PyInput
+		self.input_method = stdin # PyStdin
+	PyDef in_line(self,every=1):
+		for char in stdin.read(every):
+			yield char
+	PyDef write(self,string):
+		stdout.write(string)
 	PyDef read_line(self):
-		self.line = input()
-		return self.line
+		return stdin.readline()
 
 metavar const simple_read = ReadLine()
 
 # function for work on strings
 !define "Py3string" 3
-exac: print('Iam Running')
 PyDef _py3string(from_string:str):
 	return str(from_string)
 PyDef _strinstr(from_string:str,string:str):

@@ -13,8 +13,8 @@ def sqrt(y,x=2):
 def add(x,y,f=3):
     z = str(float((float(x)+float(y))))
     try:
-    z_ = z.split('.')[1]
-    _z = z.split('.')[0]
+        z_ = z.split('.')[1]
+        _z = z.split('.')[0]
     except:
         raise ValueError('The "add" function just supports 16BIT_INTEGER_FLOAT')
     if (len(z_) <= f):

@@ -133,8 +133,7 @@ class c_for():
 
 class Fail(Warning):
     def __init__(self,msg):
-        super().__init__(msg)
-    
+        super().__init__(msg)   
 
 #------------------------------ PyObject
 class PyObject(object):
