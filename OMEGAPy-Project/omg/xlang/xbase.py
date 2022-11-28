@@ -88,7 +88,7 @@ class xi:
     def __init__(self):
         self.initialize = {}
         self.base_varchar = '#'
-        self.base_vars_cnd = ['IsXinterMethod','IsPythonLibrary','HasMain','HasCompile']
+        self.base_vars_cnd = ['IsXinterMethod','IsOmgLibrary','IsPythonLibrary','HasMain','HasCompile']
         self.kw_varchar = '$'
         self.keywords = ['PyRun','CommentBlock','Shell','End']
         self.pyrun_key_words = ['PyClass','PyDef','Pysizeof']
@@ -230,6 +230,13 @@ class xi:
                 raise CompileError('Invalid Block.')
         return 1
 _VALID_TOKENS = ["XInterX"]
+def easy_2compile(SyntaxRead):
+    config={}
+    for item in SyntaxRead:
+        config['type']   = SyntaxRead[item]['type']
+        config['source'] = SyntaxRead[item]['source']
+        config['name']   = SyntaxRead[item]['name']
+    return config
 class Syntax:
     @staticmethod
     def from_dict(dict_,modules=[]):
