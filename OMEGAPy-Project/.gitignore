@@ -1,0 +1,10 @@
+*.[pyc]
+*.*.[pyc]
+*.[bak]
+*.py.[bak]
+*.[cpython-39.pyc]
+__pychahe__/*
+__pycache__
+OMGAPy-Project\omg\__pycache__\*
+*.[bak]
+desktop.ini
