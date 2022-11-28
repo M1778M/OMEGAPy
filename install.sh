@@ -1,4 +1,1 @@
-do hello
-	printf "Hello World"
-
-end
+# Base installation will write here
