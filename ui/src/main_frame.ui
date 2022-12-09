@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>965</width>
+    <height>729</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(57, 57, 57);
+color: rgba(238, 238, 238, 250);
+border:1px solid black;</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="spacing">
+     <number>1</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="Left_TabManager">
+      <property name="spacing">
+       <number>7</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="VLO_BTNS">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTreeWidget" name="TreeFiles">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="animated">
+           <bool>true</bool>
+          </property>
+          <property name="allColumnsShowFocus">
+           <bool>false</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
+          <property name="headerHidden">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerDefaultSectionSize">
+           <number>125</number>
+          </attribute>
+          <attribute name="headerHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerMinimumSectionSize">
+           <number>49</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Files</string>
+           </property>
+           <property name="background">
+            <color>
+             <red>49</red>
+             <green>49</green>
+             <blue>49</blue>
+            </color>
+           </property>
+           <property name="foreground">
+            <brush brushstyle="NoBrush">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </property>
+          </column>
+          <item>
+           <property name="text">
+            <string>src/</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>:/arrows/down-filled-triangular-arrow.png</normaloff>:/arrows/down-filled-triangular-arrow.png</iconset>
+           </property>
+           <item>
+            <property name="text">
+             <string>release</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>main.exe</string>
+             </property>
+             <property name="icon">
+              <iconset resource="metadata/resources.qrc">
+               <normaloff>:/file_and_folder/exef.png</normaloff>:/file_and_folder/exef.png</iconset>
+             </property>
+            </item>
+           </item>
+           <item>
+            <property name="text">
+             <string>about.txt</string>
+            </property>
+            <property name="icon">
+             <iconset resource="metadata/resources.qrc">
+              <normaloff>:/file_and_folder/txtf.png</normaloff>:/file_and_folder/txtf.png</iconset>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>install.sh</string>
+            </property>
+            <property name="icon">
+             <iconset resource="metadata/resources.qrc">
+              <normaloff>:/file_and_folder/scriptf.png</normaloff>:/file_and_folder/scriptf.png</iconset>
+            </property>
+           </item>
+          </item>
+          <item>
+           <property name="text">
+            <string>def/</string>
+           </property>
+           <item>
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>defines.py</string>
+            </property>
+            <property name="icon">
+             <iconset resource="metadata/resources.qrc">
+              <normaloff>:/file_and_folder/pyf.png</normaloff>:/file_and_folder/pyf.png</iconset>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>defs.c</string>
+            </property>
+            <property name="icon">
+             <iconset resource="metadata/resources.qrc">
+              <normaloff>:/file_and_folder/cf.png</normaloff>:/file_and_folder/cf.png</iconset>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>mylang.kac</string>
+            </property>
+            <property name="icon">
+             <iconset resource="metadata/resources.qrc">
+              <normaloff>:/file_and_folder/unkf.png</normaloff>:/file_and_folder/unkf.png</iconset>
+            </property>
+           </item>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="FileManager">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QTabWidget" name="FileManagerTab">
+        <property name="styleSheet">
+         <string notr="true">border-style:solid;
+border-width:0.5px;
+border-color:rgb(57,57,57) rgb(57,57,57) rgb(57,57,57)  rgb(208, 208, 208);</string>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::North</enum>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::Triangular</enum>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <property name="documentMode">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="_1Tab_untitled1_nopath">
+         <property name="maximumSize">
+          <size>
+           <width>9999</width>
+           <height>9999</height>
+          </size>
+         </property>
+         <attribute name="title">
+          <string>untitled1</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QPlainTextEdit" name="Edit_Tab1_untitled1_nopath">
+            <property name="maximumSize">
+             <size>
+              <width>999</width>
+              <height>999</height>
+             </size>
+            </property>
+            <property name="tabStopWidth">
+             <number>80</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>965</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menufile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuNew_Project">
+     <property name="title">
+      <string>New Project</string>
+     </property>
+     <addaction name="actionEmpty_Project"/>
+     <addaction name="actionEmpty_Project_by_Folder"/>
+     <addaction name="actionOMEGAPy_Project"/>
+    </widget>
+    <widget class="QMenu" name="menuOpen_Project_Folder">
+     <property name="title">
+      <string>Open Project Folder</string>
+     </property>
+    </widget>
+    <addaction name="menuNew_Project"/>
+    <addaction name="menuOpen_Project_Folder"/>
+    <addaction name="actionnew_file"/>
+    <addaction name="actionopen_file"/>
+    <addaction name="actionopen_folder"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="actionClose_File"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionReplace"/>
+    <addaction name="actionFind"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menutheme">
+     <property name="title">
+      <string>theme</string>
+     </property>
+     <addaction name="actiondark"/>
+     <addaction name="actionlight"/>
+    </widget>
+    <addaction name="menutheme"/>
+   </widget>
+   <widget class="QMenu" name="menuRun">
+    <property name="title">
+     <string>Run</string>
+    </property>
+    <addaction name="actionRun_This_File"/>
+    <addaction name="actionRun_Project"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionOur_Project"/>
+   </widget>
+   <addaction name="menufile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuRun"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionnew_file">
+   <property name="text">
+    <string>New File...</string>
+   </property>
+  </action>
+  <action name="actionopen_file">
+   <property name="text">
+    <string>Open File...</string>
+   </property>
+  </action>
+  <action name="actionopen_folder">
+   <property name="text">
+    <string>Open Folder...</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+  </action>
+  <action name="actionClose_File">
+   <property name="text">
+    <string>Close File</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="text">
+    <string>Cut</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="actionReplace">
+   <property name="text">
+    <string>Replace</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="text">
+    <string>Find</string>
+   </property>
+  </action>
+  <action name="actionRun_This_File">
+   <property name="text">
+    <string>Run This File</string>
+   </property>
+  </action>
+  <action name="actionRun_Project">
+   <property name="text">
+    <string>Run Project</string>
+   </property>
+  </action>
+  <action name="actionEmpty_Project">
+   <property name="text">
+    <string>Empty Project</string>
+   </property>
+  </action>
+  <action name="actionEmpty_Project_by_Folder">
+   <property name="text">
+    <string>Empty Project by Folder</string>
+   </property>
+  </action>
+  <action name="actionOMEGAPy_Project">
+   <property name="text">
+    <string>OMEGAPy Project</string>
+   </property>
+  </action>
+  <action name="actionOMEGAPy_Project_by_Folder">
+   <property name="text">
+    <string>OMEGAPy Project by Folder</string>
+   </property>
+  </action>
+  <action name="actionOur_Project">
+   <property name="text">
+    <string>Our Project</string>
+   </property>
+  </action>
+  <action name="actiondark">
+   <property name="text">
+    <string>dark</string>
+   </property>
+  </action>
+  <action name="actionlight">
+   <property name="text">
+    <string>light</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="metadata/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,15 @@
+   1 # editor.py
+   2 
+   3 from PyQt4 import QtGui
+   4 import syntax
+   5 
+   6 app = QtGui.QApplication([])
+   7 editor = QtGui.QPlainTextEdit()
+   8 highlight = syntax.PythonHighlighter(editor.document())
+   9 editor.show()
+  10 
+  11 # Load syntax.py into the editor for demo purposes
+  12 infile = open('syntax.py', 'r')
+  13 editor.setPlainText(infile.read())
+  14 
+  15 app.exec_()

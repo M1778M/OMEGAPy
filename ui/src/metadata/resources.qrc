@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="file_and_folder">
+    <file>exef.png</file>
+    <file>scriptf.png</file>
+    <file>unkf.png</file>
+    <file>txtf.png</file>
+    <file>cppf.png</file>
+    <file>pyf.png</file>
+    <file>cf.png</file>
+  </qresource>
+</RCC>
