@@ -4,17 +4,29 @@ from prj import project_manager as prjm
 import argparse as _argparse
 import pathlib as pl
 import os
+import sys
 init()
 
 
 
+def print_error(errT,errMsg):
+    print (Fore.RED,errT+': ',Fore.RESET,errMsg)
 
 def just_in(arg):
     import sys
     if arg in sys.argv:
         return True
     return False
-
+def print_info(infotxt:str):
+    print (Fore.GREEN+'['+Fore.RESET+'*'+Fore.GREEN+'] '+Fore.RESET+infotxt)
+def raise_error (error_t,error_msg,code):
+    if code == 0:
+        print_error (error_t,error_msg)
+        sys.exit()
+    elif code == 1:
+        print_error (error_t,error_msg)
+    else:
+        raise_error(error_t,error_msg,0)
 
 
 
@@ -44,9 +56,27 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
     def find_venv():
-        dirs = os.listdir(str(pl.Path(__file__).cwd()))
-        if 'venv' in dirs:
-            return 'venv\\Scripts'
+        if Path('./venv').exists() or Path('./.venv').exists() or Path('./env').exists() or Path('./.env').exists():
+            get = [Path('./venv').exists() , Path('./.venv').exists() , Path('./env').exists() , Path('./.env').exists()]
+            for i in range(len(get)):
+                if get[i] == True:
+                    if i == 0:
+                        return Path('./venv/Scripts')
+                    elif i == 1:
+                        return Path('./.venv/Scripts')
+                    elif i == 2:
+                        return Path('./env/Scripts')
+                    elif i == 3:
+                        return Path('./.env/Scripts')
+                    else:
+                        continue
+            return False
+                    
+        else:
+            raise_error ("EnvironmentNotFoundError","Cannot find Environment",1)
+            print_info("Using system python installed.")
+            return 3
+
     if args.ProjectFile:
         
         manager = pkgm.manager(find_venv())

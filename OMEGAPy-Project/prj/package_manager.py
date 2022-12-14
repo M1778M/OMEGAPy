@@ -11,10 +11,19 @@ def auto_vpath():
     except Exception as err:
         raise
 
+class InvalidEnvironmentError(Exception):
+    def __init__(self,msg):
+        super().__init__(msg)
+
 class manager():
     def __init__(self,venvpath:str):
             self.vpath = venvpath
-            self.py = f"{self.vpath}\\python.exe -m "
+            if self.vpath == False:
+                raise InvalidEnvironmentError(f"Cannot find this environment '{venvpath}'")
+            elif self.vpath == 3:
+                self.py = 'python -m '
+            else:
+                self.py = f"{self.vpath}\\python.exe -m "
     def pym(self,cmd):
         os.system(self.py + cmd)
     def install_pkg(self,pkgname:str):
