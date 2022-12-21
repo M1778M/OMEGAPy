@@ -1,0 +1,2 @@
+all of the methods and files created because some emulations and most important of them its cext.py for using global variables easier
+This library is not exacly clib or c library its name its clib -> Creation Library not C language Library and why the files named like c language headers and functions name and works and methods are like c language and c language headers its cause its an mini emulation for c functions and methods
