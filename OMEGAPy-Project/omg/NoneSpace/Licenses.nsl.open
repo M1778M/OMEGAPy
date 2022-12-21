@@ -1,0 +1,20 @@
+<NSL-SyntaxVersion>:0.3
+
+licenses = {
+(NoneSpaceSTDOpenLicense),
+(NoneSpaceSTDCLicense),
+(NoneSpaceFLLicense),
+(OMEGAPy-NoneSpaceSTDCLicense),
+(OMEGAPy-NoneSpaceSTDLibLicense),
+(OMEGAPy-NoneSpaceInterSource),
+(OMEGAPy-nonNoneSpaceLicense),
+(NoneSpacenonOpenSourceLicense),
+(NoneSpaceCreativeLicense),
+(NoneSpaceClientLicense),
+(NoneSpaceYOWNLicense)
+}
+
+<NSL-CloseSyntax>
+
+	NoneSpace licenses with NSL-Syntax has readable module for true licenses
+	NoneSpace licenses Modules,Sources,Standards and more things
