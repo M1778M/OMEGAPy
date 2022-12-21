@@ -1,5 +1,7 @@
+# BUG FOUND
+# PLEASE DO NOT USE THIS MODULE THIS MODULE IS BROKEN
 class Request():
-    def __init__(self,url:str,method:str,params={},data={},headers={},timeout=int(200),auth=()):
+    def __init__(self,url:str,method:str,params={},data={},headers={},timeout=int(200),auth=tuple()):
         import httpx
         self.url = url
         self.method = method

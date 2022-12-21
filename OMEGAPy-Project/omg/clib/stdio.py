@@ -1,3 +1,4 @@
+#WARNING: this is not all of metohds of stdio.h
 from .cext import *
 from io import SEEK_END,SEEK_CUR,SEEK_SET
 from msvcrt import *

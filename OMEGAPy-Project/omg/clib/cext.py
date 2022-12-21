@@ -1,44 +1,186 @@
 import threading as _threading
-from numpy import array,ndarray
+import random as _random
+import time as _time
+from numpy import array,nan
 from sys import getsizeof as sizeof
-from cython import inline
+from hashlib import sha256 as _sha256
 _defined_object = {}
+_objects_ = {} # {address : value}
 
 
+def _rand(num):
+    return num>>_random.randint(1,7)
+
+def _address_make():
+    f=_random.randint
+    addr=0
+    for i in range(16):
+        if f(0,1):
+            addr+=_rand(object.__hash__(f(f(99999,9999999),f(99999999,99999999999))))
+        else:
+            addr-=_rand(object.__hash__(f(f(99999,9999999),f(99999999,99999999999))))
+    _ = int((addr*_time.time())/f(16661,96666))
+    if _ == 0:
+        return _address_make()
+    
+    return _
+
+def _address_save(obj,addr):
+    _objects_[obj] = addr
+    return addr
+
+
+def _search(address):
+    for i in _objects_:
+        if i.address == address:
+            return i.get_obj()
+    return None
+def _setval(address,value):
+    for i in _objects_:
+        if i.address == address:
+            i.obj._setval(type(i.obj)(value))
+            return None
+def _setival(address,index,value):
+    for i in _objects_:
+        if i.address == address:
+            i.obj.__setitem__(index,value)
+            return None
+class _pointing:
+    def __init__(self,obj,address):
+        self.obj = obj
+        self.address = address
+    def get_obj(self):
+        return self.obj
+    def get_address(self):
+        return self.address
+class point_t:
+    def __init__(self):
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
+def swap(obj,new_value):
+    newobj = obj.__class__(new_value)
+    newobj.address = obj.address
+    return newobj
 class cint(int):
     def __init__(self,pyint=0):
         self.value = pyint
-        super(cint,self).__init__()
-class aint(ndarray):
-    def __init__(self,pylist=[]):
-        self.value=array(pylist)
-        super(aint,self).__init__()
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
+        super().__init__()
+    
+    def _setval(self,value):
+        newobj = cint(value)
+        self.naddress = newobj.address
+        return newobj
+
+class aint(list):
+    def __init__(self,size:int=0):
+        self.value=list([nan]*size)
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
+        super(aint,self).__init__(self.value)
 
 class cdouble(float):
     def __init__(self,pyfloat=0.):
         self.value=float(pyfloat)
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
         super(cdouble,self).__init__()
+    def _setval(self,value):
+        newobj = cdouble(value)
+        self.naddress = newobj.address
+        return newobj
 
 class unsigned(int):
     def __init__(self,cint_):
         self.value = abs(cint_.value)
-        super(unsigned,self).__init__()
-
-class cchar(str):
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
+        super(unsigned,self).__init__(self.value)
+    
+class cchar:
     def __init__(self,pystr='\0'):
         if len(pystr) > 1:
             self.value = pystr[0]
+            addr = _address_make()
+            self.address = _address_save(_pointing(self,addr),addr)
             raise ValueError
         else:
+            addr = _address_make()
+            self.address = _address_save(_pointing(self,addr),addr)
             self.value = pystr
-        super(cchar,self).__init__()
-class achar(str):
-    def __init__(self,pystr):
-        self.value = pystr
-        super(achar,self).__init__()
-    def addchar(self,cchar_):
-        self.value+=char_.value
+    def __repr__(self):
+        return f"{self.value}"
+    def change_value(self,value):
+        self.value = value
+   
+    def _setval(self,value):
+        self.value = value
+        return self
 
+class achar():
+    def __init__(self,size):
+        self.value = bytearray(b'\0'*size)
+        addr = _address_make()
+        self.address = _address_save(_pointing(self,addr),addr)
+        super(achar,self).__init__()
+    def addchar(self,char_):
+        self.value+=char_.value
+    def __getitem__(self,other):
+        return self.value.decode()[other]
+    def __setitem__(self,index,value):
+        self.value[index] = ord(value)
+    def __repr__(self):
+        return self.value.decode()
+    def _setval(self,value):
+        self.value = value
+        return self.value
+def fix(var):
+    return _search(var.naddress)
+
+def setitem(obj,index,value):
+    obj[index] = value
+    return True
+
+class pointer:
+    def __init__(self,address):
+        self.address = address
+    def is_exists(self):
+        if _search(self.address)!=None:
+            return True
+        return False
+    def get_value(self):
+        if not self.is_exists():
+            return None
+        return _search(self.address)
+    def __getitem__(self,index):
+        if type(index) == slice:
+            if index.step == None and index.start == None and index.stop == None:
+                return self.get_value()
+            else:
+                return self.get_value()[index]
+        else:
+            return self.get_value()[index]
+    def __setitem__(self,index,value):
+        if type(index) == slice:
+            if index.step == None and index.stop == None and index.start == None:
+                _setval(self.address,value)
+                self.update()
+            else:
+                _setival(self.address,index,value)
+        else:
+            _setival(self.address,index,value)
+    def __and__(self,other):
+        return (self.get_value()[other]) if other!=None else self.get_value()
+    def __add__(self,other):
+        return (self.get_value()[other]) if other!=None else self.get_value()
+    def update(self):
+        if hasattr(_search(self.address),'naddress'):
+            self.address = _search(self.address).naddress
+
+def ptrcpy (pointer_,index,value):
+    pointer_.get_value()[index] = value
+    return 1
 def PyInput():
     return input()
 
@@ -215,8 +357,6 @@ class cbs():
 classbystruct = cbs;
 
 
-def c_inline(INLINE_F):
-    return inline(INLINE_F)
 
 
 class rstruct():

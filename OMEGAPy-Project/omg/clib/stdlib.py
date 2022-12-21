@@ -1,3 +1,4 @@
+#WARNING: this is not all of metohds of stdlib.h
 import numpy
 from .cext import *
 

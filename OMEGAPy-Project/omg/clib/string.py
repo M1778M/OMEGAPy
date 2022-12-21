@@ -1,3 +1,4 @@
+#WARNING: this is not all of metohds of string.h
 from .cext import *
 
 

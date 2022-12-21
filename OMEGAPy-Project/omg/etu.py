@@ -10,6 +10,7 @@ try:
     import sys
     import re
     import os
+    import cython
 except ImportError as err:
     raise ImportError (err)
 except Exception as err:
@@ -134,7 +135,12 @@ class c_for():
 class Fail(Warning):
     def __init__(self,msg):
         super().__init__(msg)   
-
+def easy_for(start,stop,step,func_):
+    all = []
+    for i in range(start,stop,step):
+        x=func_(i)
+        all.append(x)
+    return (x,all)
 #------------------------------ PyObject
 class PyObject(object):
     def __init__(self,*args):
@@ -194,6 +200,7 @@ class PyObject(object):
         return self.__save_range
 PyObject = (PyObject)
 #---------------------------------
+
 
 class CoreException(Exception):
     def __init__(self,msg):
