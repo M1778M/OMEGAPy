@@ -359,20 +359,19 @@ classbystruct = cbs;
 
 
 
-class rstruct():
+class istruct():
     def __init__(self,objects):
         self.__setmems(objects)
     def __setmems(self,mems):
-        for i in mems.keys():
-            setattr(self,i,mems[i])
+        for i in list(mems):
+            setattr(self,i,mems[i]())
+
 
 class struct():
     def __init__(self,**objects):
         self.__objects = objects
     def __call__(self):
-        for i in self.__objects.keys():
-            self.__objects[i] = None
-        new = rstruct(self.__objects)
+        new = istruct(self.__objects)
         return new
 
 class define:
