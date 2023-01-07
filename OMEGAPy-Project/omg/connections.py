@@ -3,6 +3,15 @@ from .secure import SignMethodMaker
 import socket
 from threading import Thread
 
+def check_port(host,port,timeout=5):
+    q = socket.socket(2,1)
+    q.settimeout(timeout)
+    try:
+        q.connect((host,port))
+        return True
+    except:
+        return False
+
 class stds:
     omegapy_str = 'OMEGAPacket '
 

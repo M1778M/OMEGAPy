@@ -374,6 +374,22 @@ class struct():
         new = istruct(self.__objects)
         return new
 
+def _basic_structure_type_setter(_type,method:str='stdint'):
+    def _set(_type,name,value):
+        setattr(_type,name,value)
+    def _stdint_add(_type):
+        def _add_(self,other):
+            return _type(self.value+other)
+        return _add_
+    ...
+    if method == 'stdint':
+        _set(_type,'__add__',_stdint_add(_type))
+
+
+        return True
+    else:
+        return False
+
 class define:
     def __init__(self,object,value):
         self.tdef(object,value)
