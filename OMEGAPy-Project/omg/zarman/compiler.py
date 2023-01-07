@@ -1,4 +1,4 @@
-from compile_options import TellaCompiler
+from .compile_options import TellaCompiler
 
 LAST_FILE_COMPILED = None
 tella = TellaCompiler()
