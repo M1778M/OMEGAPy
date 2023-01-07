@@ -18,6 +18,9 @@ _Background_FixColor   = _code+'[7m'
 _Code_Compiler         = "OMEGAPyCompilePy"
 _IS_END = False
 # StaticMethods
+def read_key():
+    return msvcrt.getch()
+
 def styler(text,ss,se):
     return ss+text+se
 class text_spliter:
@@ -143,4 +146,12 @@ def loader (text,cs=_d,ce=cr,bg=_dg,eg=br,delay=0.1,char='.'):
             _IS_END = True
     return True
 
+def ktracker(quitKey:bytes=Key(b'RandomKey').ESCAPE):
+    _quit_key = quitKey
+    while True:
+        key_ = read_key()
+        if key_ != _quit_key:
+            yield key_
+        else:
+            return True
 

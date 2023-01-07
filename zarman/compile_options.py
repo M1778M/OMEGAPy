@@ -1,4 +1,3 @@
-from ctypes import *
 from subprocess import Popen
 
 def _ExecuteSource(code:str):
