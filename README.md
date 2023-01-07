@@ -13,7 +13,7 @@
 <br>
 <br>
 
-## Install
+## Install (not completed)
 <pre>
 git clone https://github.com/M1778M/OMEGAPy.git
 bash OMEGAPy/install.sh
@@ -28,7 +28,7 @@ bash OMEGAPy/install.sh
 omegapy create project NameOfProject_Folder
 </pre>
 ```
-OMEGAPy-Project
+OMEGAPy-Project (not updated)
 +-- core
 |   +-- cfg.ini
 |   +-- config.ini
@@ -69,13 +69,13 @@ from prj import project_manager,package_manager
 import omg
 from omg import etu,p2d
 
-etu.c_for(int(0),etu.Condition("i<10"),'+',etu.c_for.std_print)
+etu.c_for(int(0),etu.Condition("i<10"),'+',etu.c_for.std_print) # basic simulation of for
 ```
 
 <br>
 <br>
 
-## How To Install Packages We Need
+## How To Install Packages We Need (not updated)
 
 ```
 venv/Scripts/pip install <your_pkg_you_need>
