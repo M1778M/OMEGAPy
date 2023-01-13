@@ -89,7 +89,28 @@ def GAItemlist(ls):
 
 def alist():
     return []
-
+def srange(start,end,step=1):
+    if start == abs(start):
+        for i in range(start,end,step):
+            yield i
+    if type(start)!=int or type(end)!=int or type(step)!=int:
+        raise TypeError('Invalid Types in use.')
+    if step > end:
+        yield start
+    else:
+        eq = start
+        yield eq
+        while True:
+            if eq == 0:
+                for i in range(eq+1,end,step):
+                    if eq >= end:
+                        break
+                    yield i
+                break
+            if eq >= end:
+                break
+            eq+=step
+            yield eq
 def tlist_for_each(ls,enum = lambda x:x ):
     out = []
     
