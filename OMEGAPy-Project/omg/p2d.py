@@ -393,14 +393,14 @@ class IReturn():
     StandardReturnBreak = {'key':True,'start':1,'step':1}
     StandardPrintBreak = {'key':False,'start':1,'step':1}
     StandardDemoObject = -1
-    StandardFormating = '-'
+    StandardFormatting = '-'
     StandardQueryReload = std.StandardQueryStart
     def __init__(self,*Ax0,kwargs={'key':False,'start':0,'step':1}):
         from sklearn import base
         self.__learning = base
         self.Ax0 = Ax0
         self.kwargs = kwargs
-        self.formating = IReturn.StandardFormating
+        self.formatting = IReturn.StandardFormatting
         self.__rdfocoa()
     def __rdfocoa(self):
         self.__change_object__ = self._setax0
@@ -479,8 +479,6 @@ class IReturn():
                                 flagf+=0.1
                         print()
                 return ot
-    def ch2array(self, accept_sparse=False, *, accept_large_sparse=True, dtype='numeric', order=None, copy=False, force_all_finite=True, ensure_2d=True, allow_nd=False, ensure_min_samples=1, ensure_min_features=1, estimator=None):
-        return self.__learning.check_array(self.ToArray().reshape(-1,1),accept_sparse, accept_large_sparse, dtype, order, copy, force_all_finite, ensure_2d, allow_nd, ensure_min_samples, ensure_min_features, estimator)
     def plot(self,x=[]):
         from matplotlib.pyplot import plot
         return plot(x,self.__return__())
@@ -726,6 +724,8 @@ class IReturn():
         ret = delindex(obj,index)
         self._setax0(ret)
         return True
+    def normal(self):
+        return np.random.normal(self.__return__())
     def rpop(self):
         self.Ax0 = self.Ax0[:len(self.Ax0)-1]
         return True
@@ -797,6 +797,8 @@ class IReturn():
 
             return str(self.__return__())
 
+def normalized_ir(Ax0):
+    return IReturn(*Ax0).normal()
 
 def IArray(arr:np.ndarray,kwargs=IReturn.StandardPrintBack):
     if type(arr) is not np.ndarray:
@@ -936,10 +938,11 @@ class IRand():
             raise IReturnValueError (err)
 
 
-
-
-
-
+def _TestFeature_4IReturn(*Ax0):
+    iro = IReturn(*Ax0).normal()
+    featured_object = etu.new_feature(type=IReturn,object=iro)
+    featured_object.declare('iretry',1)
+    return featured_object.force_make('IReturn',{'__init__':{'name':'__init__','args':('self,*Ax0','kwargs={"key":False,"start":0,"step":1}'),'lines':['self.Ax0=Ax0','self.kwargs=kwargs','self.formatting=IReturn.StandardFormatting','super().__init__()']}, '__repr__':{'name':'__repr__','args':('self',),'lines':['return str(self.normal())']}})
 class QShow():
     def __init__(self,obj:IReturn):
         if type(obj) is not IReturn:
@@ -994,7 +997,6 @@ class QShow():
 class OperationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
-
 
 
 def remove_quotes(string):
@@ -1143,9 +1145,7 @@ def _EXL_LVLC({remove_quotes(str(tuple(AN_l)).strip('(').strip(')'))}):
         self._LEVELS=[]
         max,min,inpg = self.get_values()
         self.make_operation(self._OPR,max,min,inpg)
-        
-
-
+       
 
 
 

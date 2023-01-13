@@ -1,7 +1,7 @@
 ############  Public Modules
 
 try:
-    from colorama import init,Fore,Back
+    from colorama import init as _init,Fore,Back
     from numpy import array
     from typing import Any
     #from olib.etu import Test_BForce, cfs, Class, function, gtime
@@ -25,6 +25,7 @@ try:
     from . import __need__ as stdn
     from .error_handling import *
     from .tools import listTool
+    from .tools.listTool import srange,list_for_each,list_for_inner
     from .algoritm import Xalg
 except:
     try:
@@ -36,7 +37,7 @@ except:
         raise EtuExceptionError(err)
 ###############################################################################################
 #-------------------------------------- Etu Globals ------------------------------------------
-
+global IReturn
 ###############################################################################################
 #-------------------------------------- Etu BaseMethods ---------------------------------------
 class _ETU_COMMENT:
@@ -72,13 +73,15 @@ _ETU_STANDARD_MODULES = _ETU_MULTY_COMMENT('stdn','cython','sys','re','os','nump
 _ETU_MEMORY_MANAGEMENT = _ETU_COMMENT("By Python3")
 ETU_BASE = Var((dir(),_ETU_COMMENT("EasyToUse Standard Module")))
 ###############################################################################################
-
+def _dec_ire(irc):
+    global IReturn
+    IReturn = irc
 
 class EtuExceptionError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
 
-init()
+_init()
 
 
 def nothing():pass
@@ -142,7 +145,7 @@ def easy_for(start,stop,step,func_):
         all.append(x)
     return (x,all)
 #------------------------------ PyObject
-class PyObject(object):
+class _EPyObject(object):
     def __init__(self,*args):
         super().__init__()
         self._args=args
@@ -198,9 +201,71 @@ class PyObject(object):
         self.__save_range.append(obj)
     def deflist(self):
         return self.__save_range
-PyObject = (PyObject)
 #---------------------------------
+class _FememmanV:
+    def __init__(self,name,value):
+        self.name=name
+        self.value=value
+    def get_value(self):
+        return self.value
+    def get_name(self):
+        return self.name
+    def change_value(self,newValue):
+        self.value =newValue
+    def __getitem__(self,index):
+        return self.value
 
+class _Fememman:
+    def __init__(self):
+        self._memory = []
+    def declare_variable(self,name,value):
+        self._memory.append(_FememmanV(name,value))
+        return True
+    def _search_by(self,inp,by:str='name'):
+        if by == 'name':
+            return _search(inp)
+        elif by == 'value':
+            for var in self._memory:
+                if inp == var.value:
+                    return var
+        return None
+    def _search(self,name):
+        for var in self._memory:
+            if var.name == name:
+                return var
+        return None
+    def get_variable_byname(self,name):
+        return self._search(name)
+    def get_variable_byid(self,id):
+        return self._memory[id]
+    def get_variable_byvalue(self,value):
+        return self._search_by(value,'value')
+_featureclassflag = 0
+
+class _Feature(object):
+    def __init__(self,feature_type,feature_object,feature_id,feature_memman=_Fememman):
+        self.man=feature_memman()
+        self.stds=feature_id
+        self._type=feature_type
+        self.obj = feature_object
+    def force_make(self,ename:str,_funcobjects:dict=None):
+        global _featureclassflag,IReturn
+        exec("global "+ename,globals())
+        _featureclassflag+=1
+        if not _funcobjects:
+            return Class('_feature_class'+str(_featureclassflag),[ename],{'__init__':{'name':'__init__',}}).exe()
+        return Class('_feature_class'+str(_featureclassflag),[ename],_funcobjects).exe()
+    def declare(self,name,value):
+        self.man.declare_variable(name,value)
+        setattr(self,name,self.man.get_variable_byname(name))
+        return True
+    def add_feature_function(self,func_name,func):
+        setattr(self,func_name,func)
+        return getattr(func_name)
+_Type_type = type
+_Object_type = object
+def new_feature(object,type=None):
+    return _Feature((type if type!=None else _Type_type(object)),object,'OMEGAPy_EtuClass_FeatureStandard')
 
 class CoreException(Exception):
     def __init__(self,msg):
