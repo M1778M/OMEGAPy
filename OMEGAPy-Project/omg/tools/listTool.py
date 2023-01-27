@@ -93,7 +93,7 @@ def srange(start,end,step=1):
     if start == abs(start):
         for i in range(start,end,step):
             yield i
-    if type(start)!=int or type(end)!=int or type(step)!=int:
+    if type(start)!=int or type(end)!=int:
         raise TypeError('Invalid Types in use.')
     if step > end:
         yield start
