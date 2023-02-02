@@ -2,7 +2,7 @@
 
 ## COMING SOON (this README.md is not updated)
 
-<h2 style="box-shadow:-2px 1.5px 3px rgb(68,68,68);padding:4px">This project was created to make Python easy to use</h2>
+<h2 style="box-shadow:-2px 1.5px 3px rgb(68,68,68);padding:4px">This project was created to help you make PythonProjects easier</h2>
 
 
 <h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> You can create your projects in OMEGAPy and use its </h4>
