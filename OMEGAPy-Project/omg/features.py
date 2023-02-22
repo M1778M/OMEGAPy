@@ -9,7 +9,7 @@ class _StdFeature_Control:
         self.set_variable = self.set_var
         self.get_variable = self.get_var
         self.add_func = self.add_function
-
+        self.short = str(self.__class__)
     def set_var(self,variable_name:str,variable_value):
         setattr(self,variable_name,variable_value)
         return self
@@ -39,8 +39,9 @@ class _Feature:
         self._exec = feature_executable
         self._id = feature_id
         self.name = feature_name
-        self.validator
-    @property
+        self.validator()
+    def __repr__(self):
+        return f"<Feature '{self.name}' id={self._id} exec={self._exec} control={self._control.short}>"
     def validator(self):
         if self._control.feature_id_valid(self._id) and self._control.feature_executable_valid(self._exec) and self._control.feature_name_valid(self.name):
             self.__usable = True
@@ -49,14 +50,23 @@ class _Feature:
             self.__usable = False
         return self.__usable
     def add_feature_function(self,function_name,function):
-        if self.validator:
+        if self.validator():
             self._control.add_func(function_name,function)
             return getattr(self._control,function_name)
-    def __getattribute__(self,attr):
+    def get(self,attr):
         try:
             return getattr(self,attr)
         except:
             return getattr(self._control,attr)
-    def __setattribute__(self,attr,value):
+    def set(self,attr,value):
         setattr(self._control,attr,value)
         return self
+
+def is_featured(feature_):
+    try:
+        if feature_.validator():
+            return True
+        return False
+    except:
+        return False
+
