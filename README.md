@@ -2,10 +2,10 @@
 
 ## COMING SOON (this README.md is not updated)
 
-<h2 style="box-shadow:-2px 1.5px 3px rgb(68,68,68);padding:4px">This project was created to make Python easy to use</h2>
+<h2 style="box-shadow:-2px 1.5px 3px rgb(68,68,68);padding:4px">This project was created to help you make PythonProjects easier</h2>
 
 
-<h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> You can create your projects in OMEGAPy and use its </h4>
+<h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> You can create your projects in OMEGAPy and manage it </h4>
 <h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> ready-made libraries as much as possible, as well as </h4>
 <h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> install the libraries you need in the virtual environment</h4>
 <h4 style="padding-left:10px;padding:1px;text-shadow:1px 1px rgb(36,100,100);"> and get the final of your project. </h4>
