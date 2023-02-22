@@ -1,0 +1,17 @@
+This is featuredlib for featured objects of omglib
+
+for example in omg.p2d we have:
+class IReturn:
+	...
+	def __init__(self,...):
+		...
+		
+but in omg.featured.p2d we have:
+class FeaturedIReturn(<_Feature>):
+	...
+	def __init__(self,...):
+		...
+		super().__init__('FeaturedIReturn','Python',1,<_StdFeature_Control>)
+
+that is featured class or method of a object in omg.p2d
+this will be for all of modules in omg library
