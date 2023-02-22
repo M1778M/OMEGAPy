@@ -248,12 +248,22 @@ class _Feature(object):
         self.stds=feature_id
         self._type=feature_type
         self.obj = feature_object
+        self.call = self.__call__
+
+    def get(self):
+        return self.obj
+    def __call__(self,fun,*args,**kwargs):
+        if type(fun)==str:
+            func=getattr(self,fun)
+        else:
+            func = fun
+        return func(self,*args,**kwargs)
     def force_make(self,ename:str,_funcobjects:dict=None):
         global _featureclassflag,IReturn
         exec("global "+ename,globals())
         _featureclassflag+=1
         if not _funcobjects:
-            return Class('_feature_class'+str(_featureclassflag),[ename],{'__init__':{'name':'__init__',}}).exe()
+            return Class('_feature_class'+str(_featureclassflag),[ename],{'__init__':{'name':'__init__','args':('self',) ,'lines':['super().__init__()']}}).exe()
         return Class('_feature_class'+str(_featureclassflag),[ename],_funcobjects).exe()
     def declare(self,name,value):
         self.man.declare_variable(name,value)
@@ -261,7 +271,7 @@ class _Feature(object):
         return True
     def add_feature_function(self,func_name,func):
         setattr(self,func_name,func)
-        return getattr(func_name)
+        return getattr(self,func_name)
 _Type_type = type
 _Object_type = object
 def new_feature(object,type=None):
